@@ -1,0 +1,88 @@
+﻿@model List<ShelterManagerRedux.Models.Client>
+
+<style>
+    td {
+        border: solid;
+    }
+</style>
+
+@{
+    ViewData["Title"] = "Client Manager";
+}
+<h1>@ViewData["Title"]</h1>
+<button type="button" onclick="OpenClientDetailWindow(0)">Create New Client</button>
+<br />
+<br />
+<h3>Existing Clients</h3>
+<table align="left" border="1" style="border:1px solid black; background-color:white; font-size:25px; border-spacing: 30px;">
+
+
+    <tr style="border:solid;">
+        <td align="center">
+            First Name
+        </td>
+        <td align="center">
+            Middle Name
+        </td>
+        <td align="center">
+            Last Name
+        </td>
+        <td align="center">
+            Location
+        </td>
+        <td align="center">
+            Actions
+        </td>
+    </tr>
+
+
+    @foreach (Client c in Model)
+    {
+        <tr style="border:solid;">
+            <td align="center">
+                @c.F_Name
+            </td>
+            <td align="center">
+                @c.M_Name
+            </td>
+            <td align="center">
+                @c.L_Name
+            </td>
+            <td>@Html.DropDownListFor(x => c.Shelter_Location_ID, new SelectList(ViewBag.ShelterLocations, "Shelter_Location_ID", "Shelter_Location_Description", ViewBag.ShelterLocations), new { @disabled = "disabled" })</td>
+            <td align="center">
+                <button type="button" onclick="OpenClientDetailWindow(@c.ClientID)">Edit</button>
+
+                <button type="button" onclick="DeleteClient(@c.ClientID)">Delete</button>
+            </td>
+        </tr>
+    }
+</table>
+
+
+<script>
+
+    function OpenClientDetailWindow(Client_ID) {
+
+        //alert("Opening: " + Client_ID);
+        window.open("/ClientDetailManager/" + Client_ID, "mywindow", "menubar=1,resizable=1,width=600,height=500");
+    }
+
+    function DeleteClient(Client_ID) {
+        if (confirm("Press OK to continue with deletion.")) {
+            //alert("Deleting: " + Client_ID);
+            $.ajax({
+                type: "POST",
+                url: "/DeleteClient",
+                data: { clientIDVal : Client_ID },
+                error: function (xhr, status, error) {
+                    alert('Client Deleted');
+                },
+                success: function (result) {
+                    location.reload();
+                }
+            });
+        }
+    }
+
+</script>
+

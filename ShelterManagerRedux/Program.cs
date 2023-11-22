@@ -1,0 +1,25 @@
+var builder = WebApplication.CreateBuilder(args);
+
+string connectionString = builder.Configuration["Connnectionstrings:MyConnection"];
+
+//builder.Configuration.AddAzureAppConfiguration(connectionString);
+
+builder.Services.AddRazorPages();
+
+
+var app = builder.Build();
+
+//app.MapGet("/", () => "Hello World!");
+
+app.UseRouting();
+app.UseStaticFiles();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
+
+app.MapRazorPages();
+
+app.Run();

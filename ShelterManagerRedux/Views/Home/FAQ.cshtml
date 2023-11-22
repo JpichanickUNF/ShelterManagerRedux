@@ -1,0 +1,28 @@
+﻿@model List<ShelterManagerRedux.Models.FrequentlyAskedQuestions>
+
+<style>
+    td {
+        border: solid;
+    }
+</style>
+
+
+@{
+    ViewData["Title"] = "Frequently Asked Questions";
+}
+<h1>@ViewData["Title"]</h1>
+<table align="left" border="1" style="border:1px solid black; background-color:white; font-size:25px; border-spacing: 30px;">
+    @foreach (FrequentlyAskedQuestions f in Model)
+    {
+
+        <tr style="border:solid;">
+            <td>
+                @f.Question
+            </td>
+            <td>
+                @f.Answer
+            </td>
+        </tr>
+    }
+</table>
+

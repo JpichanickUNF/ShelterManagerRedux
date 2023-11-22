@@ -1,0 +1,38 @@
+﻿@model List<ShelterManagerRedux.Models.Availability>
+@{
+    ViewData["Title"] = "ClientView";
+}
+
+<h1>Shelters</h1>
+
+<div><b>Table Format Data Displaying in ForEach</b><br /></div>  
+<table class="table table-bordered table-responsive table-hover">  
+    <tr>  
+        <th>ShelterID</th>
+        <th>Shelters</th>  
+        <th>Availability</th>  
+        <th>Show Interest</th>  
+        <th>Info</th>
+       
+    </tr>  
+    @foreach (Availability a in Model)
+      {
+    <tr>
+       @*  <td style="visibility: hidden;" >@a.ShelterID</td> *@
+        <td>@a.ShelterID</td>
+        <td>@a.Shelter</td>  
+        <td>@a.AvailableCots/@a.Cots</td>
+            <td>
+                <form action="">
+                    <button type="submit" onclick="CotCount(@a.ShelterID)">Show Interest</button>
+                   @*  <button type="submit" onclick="@a.AvailableCots == @a.AvailableCots - 1">Show Interest</button> *@
+                </form>
+            </td>
+        <td><a href="@a.Info">shelter info</a></td>
+
+    </tr>
+      }
+</table>  
+
+
+
