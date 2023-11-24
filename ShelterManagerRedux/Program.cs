@@ -2,6 +2,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 string connectionString = builder.Configuration["Connnectionstrings:MyConnection"];
 
+
+// Load config from Azure App Configuration
 //builder.Configuration.AddAzureAppConfiguration(connectionString);
 
 builder.Services.AddRazorPages();
