@@ -5,6 +5,11 @@
       "connectionId": "AppConfig",
       "dynamicId": null
     },
+    "appConfig2": {
+      "type": "appConfig",
+      "connectionId": "AppConfig",
+      "dynamicId": null
+    },
     "mssql1": {
       "type": "mssql",
       "connectionId": "Connnectionstrings:MyConnection",
