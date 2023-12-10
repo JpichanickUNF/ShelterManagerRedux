@@ -9,19 +9,28 @@ public class UserController : Controller
         return View();
     }
 
+    private readonly ManagerContext _context;
+
+    public UserController(ManagerContext context)
+    {
+        _context = context;
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(User model)
+    public IActionResult Create(User model)
     {
         if (ModelState.IsValid)
         {
+            _context.Users.Add(model);
+            _context.SaveChanges();
 
-
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home"); 
         }
 
         return View(model);
     }
+
 
     [HttpPost]
     [ValidateAntiForgeryToken]

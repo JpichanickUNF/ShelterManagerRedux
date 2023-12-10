@@ -4,24 +4,24 @@ public class User
 {
     public int Id { get; set; }
 
-    [Required]
-    [StringLength(20)]
-    public string firstname { get; set; }
+    [Required(ErrorMessage = "First Name is required.")]
+    public string Firstname { get; set; }
 
-    [Required]
-    [StringLength(20)]
-    public string lastname { get; set; }
+    [Required(ErrorMessage = "Last Name is required.")]
+    public string Lastname { get; set; }
 
-    [Required]
-    [StringLength(50)]
+    [Required(ErrorMessage = "Username is required.")]
     public string Username { get; set; }
 
-    [Required]
-    [EmailAddress]
+    [Required(ErrorMessage = "Phone Number is required.")]
+    [Phone(ErrorMessage = "Invalid phone number format.")]
+    public int Phone_Number { get; set; }
+
+    [Required(ErrorMessage = "Email is required.")]
+    [EmailAddress(ErrorMessage = "Invalid email format.")]
     public string Email { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Password is required.")]
     [DataType(DataType.Password)]
-    [StringLength(100, MinimumLength = 6)]
     public string Password { get; set; }
 }

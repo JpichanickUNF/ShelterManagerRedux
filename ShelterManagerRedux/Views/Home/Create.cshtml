@@ -9,13 +9,19 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="firstname">First Name</label>
-        <input asp-for="firstname" class="form-control" />
+        <label asp-for="Firstname">First Name</label>
+        <input asp-for="Firstname" class="form-control" />
     </div>
 
     <div class="form-group">
-        <label asp-for="lastname">Last Name</label>
-        <input asp-for="lastname" class="form-control" />
+        <label asp-for="Lastname">Last Name</label>
+        <input asp-for="Lastname" class="form-control" />
+    </div>
+
+    <div>
+        <label asp-for="Phone_Number"></label>
+        <input asp-for="Phone_Number" />
+        <span asp-validation-for="Phone_Number"></span>
     </div>
 
     <div class="form-group">
@@ -27,6 +33,7 @@
         <label asp-for="Password">Password</label>
         <input asp-for="Password" type="password" class="form-control" />
     </div>
+
 
     <button asp-action="Index" type="submit" class="btn btn-primary">Create Account</button>
 </form>
