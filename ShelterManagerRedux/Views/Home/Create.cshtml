@@ -34,6 +34,11 @@
         <input asp-for="Password" type="password" class="form-control" />
     </div>
 
+    <div>
+        <label asp-for="Assigned_Shelter">Assigned Shelter:</label>
+        <input asp-for="Assigned_Shelter" />
+        <span asp-validation-for="Assigned_Shelter"></span>
+    </div>
 
     <button asp-action="Index" type="submit" class="btn btn-primary">Create Account</button>
 </form>

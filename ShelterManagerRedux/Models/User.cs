@@ -13,10 +13,6 @@ public class User
     [Required(ErrorMessage = "Username is required.")]
     public string Username { get; set; }
 
-    [Required(ErrorMessage = "Phone Number is required.")]
-    [Phone(ErrorMessage = "Invalid phone number format.")]
-    public int Phone_Number { get; set; }
-
     [Required(ErrorMessage = "Email is required.")]
     [EmailAddress(ErrorMessage = "Invalid email format.")]
     public string Email { get; set; }
@@ -24,4 +20,11 @@ public class User
     [Required(ErrorMessage = "Password is required.")]
     [DataType(DataType.Password)]
     public string Password { get; set; }
+
+    [Required(ErrorMessage = "Phone Number is required.")]
+    [Phone(ErrorMessage = "Invalid phone number format.")]
+    public int Phone_Number { get; set; }
+
+    [Required(ErrorMessage = "Assigned Shelter is required.")]
+    public string Assigned_Shelter { get; set; }
 }
