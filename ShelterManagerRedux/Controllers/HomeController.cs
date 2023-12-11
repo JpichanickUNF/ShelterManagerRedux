@@ -33,63 +33,23 @@ namespace ShelterManagerRedux.Controllers
         {
             return View();
         }
-       public List<Availability> CotCount(int n)
-        {
-            
-
-            Availability Shelter1 = new Availability();
-            Availability Shelter2 = new Availability();
-            Availability Shelter3 = new Availability();
-
-            Shelter1.ShelterID = 1;
-            Shelter1.Shelter = "Shelter1";
-            Shelter1.Cots = 25;
-            Shelter1.Info = "www.Shelter1.com";
-            Shelter1.AvailableCots = Shelter1.Cots;
-
-            Shelter2.ShelterID = 2;
-            Shelter2.Shelter = "Shelter2";
-            Shelter2.Cots = 30;
-            Shelter2.Info = "www.Shelter2.com";
-            Shelter2.AvailableCots = Shelter2.Cots;
-
-            Shelter3.ShelterID = 3;
-            Shelter1.Shelter = "Shelter3";
-            Shelter3.Cots = 30;
-            Shelter3.Info = "www.Shelter3.com";
-            Shelter3.AvailableCots = Shelter3.Cots;
-
-            
-
-           
-            shltr = new List<Availability>()
-            {
-                new Availability() { ShelterID = Shelter1.ShelterID, Shelter = Shelter1.Shelter, Cots = Shelter1.Cots, Info = Shelter1.Info, AvailableCots = Shelter1.AvailableCots},
-                new Availability() { ShelterID = Shelter2.ShelterID, Shelter = Shelter2.Shelter, Cots = Shelter2.Cots, Info = Shelter2.Info, AvailableCots = Shelter2.AvailableCots},
-                new Availability() { ShelterID = Shelter3.ShelterID, Shelter = Shelter3.Shelter, Cots = Shelter3.Cots, Info = Shelter3.Info, AvailableCots = Shelter3.AvailableCots},
-            };
-            if(n >= 1)
-            {
-                new Availability() { ShelterID = Shelter1.ShelterID, Shelter = Shelter1.Shelter, Cots = Shelter1.Cots, Info = Shelter1.Info, AvailableCots = 1 };
-                Shelter1.AvailableCots = Shelter1.AvailableCots - 1;
-                [HttpPost]
-                ActionResult Index(Availability model)
-                {
-                    ModelState.Remove("AvailableCots");
-                    model.AvailableCots = Shelter1.AvailableCots;
-                    return View(model);
-                }
-            }
-            return shltr;
-        }
+      
 
 
         
         public IActionResult ClientView()
         {
-            shltr = CotCount(0);
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+            string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
 
-            return View(shltr);
+            ClientViewContext cv = new ClientViewContext(connStr);
+
+            var query = from v in cv.ClientView
+                        select v;
+
+            List<ClientView> myData = query.ToList();
+
+            return View(myData);
         }
 
 
