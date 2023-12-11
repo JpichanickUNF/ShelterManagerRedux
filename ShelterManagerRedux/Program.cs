@@ -43,7 +43,7 @@ builder.Services.AddRazorPages();
 
 
 var app = builder.Build();
-//app.UseAzureAppConfiguration();
+app.UseAzureAppConfiguration();
 
 //app.MapGet("/", () => "Hello World!");
 
