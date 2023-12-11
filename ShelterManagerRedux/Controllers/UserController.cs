@@ -1,5 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.Versioning;
+using ShelterManagerRedux.DataAccess;
+using ShelterManagerRedux.Models;
+using System.Data.Entity.Core.Common.EntitySql;
+using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 
 public class UserController : Controller
 {
@@ -20,16 +26,23 @@ public class UserController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Create(User model)
     {
-        if (ModelState.IsValid)
-        {
-            _context.Users.Add(model);
-            _context.SaveChanges();
+        IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+        string connStr = config.GetSection("ConnectionStrings:MyConnection").Value; 
 
-            return RedirectToAction("Index", "Home"); 
+        using (var context = new ManagerContext(connStr))
+        {
+            if (ModelState.IsValid)
+            {
+                context.Manager.Add(model);
+                context.SaveChanges();
+
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         return View(model);
     }
+
 
 
     [HttpPost]
