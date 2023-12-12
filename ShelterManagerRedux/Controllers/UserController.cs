@@ -1,20 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using NuGet.Versioning;
-using ShelterManagerRedux.DataAccess;
 using ShelterManagerRedux.Models;
-using System.Data.Entity.Core.Common.EntitySql;
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
+using ShelterManagerRedux.DataAccess;
+using System.Threading.Tasks;
 
 public class UserController : Controller
 {
-    [HttpGet]
-    public IActionResult Create()
-    {
-        return View();
-    }
-
     private readonly ManagerContext _context;
 
     public UserController(ManagerContext context)
@@ -22,28 +12,38 @@ public class UserController : Controller
         _context = context;
     }
 
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(User model)
+    public async Task<IActionResult> Create(User model)
     {
-        IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
-        string connStr = config.GetSection("ConnectionStrings:MyConnection").Value; 
-
-        using (var context = new ManagerContext(connStr))
+        if (ModelState.IsValid)
         {
-            if (ModelState.IsValid)
+            var manager = new User
             {
-                context.Manager.Add(model);
-                context.SaveChanges();
+                Firstname = model.Firstname,
+                Lastname = model.Lastname,
+                Username = model.Username,
+                Email = model.Email,
+                Password = model.Password,
+                Phone_Number = model.Phone_Number,
+                Assigned_Shelter = model.Assigned_Shelter
+            };
 
-                return RedirectToAction("Index", "Home");
-            }
+            _context.Manager.Add(manager);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Login", "Account");
         }
 
         return View(model);
     }
-
-
 
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -51,18 +51,15 @@ public class UserController : Controller
     {
         if (ModelState.IsValid)
         {
-
-
             return RedirectToAction("Login", "Account");
         }
 
         return View(model);
     }
+
     [HttpGet]
     public IActionResult ChangePassword()
     {
         return View();
     }
-
 }
-

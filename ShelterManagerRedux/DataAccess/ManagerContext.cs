@@ -1,24 +1,21 @@
-﻿using ShelterManagerRedux.Models;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace ShelterManagerRedux.DataAccess
 {
     public class ManagerContext : DbContext
     {
-
-        public ManagerContext(string connString) : base("ManagerContext")
+        public ManagerContext(DbContextOptions<ManagerContext> options) : base(options)
         {
-            this.Database.Connection.ConnectionString = connString;
         }
 
         public DbSet<User> Manager { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<User>().ToTable("Managers");
+
+
+            base.OnModelCreating(modelBuilder);
         }
-
-
     }
 }
