@@ -45,7 +45,7 @@ builder.Services.AddRazorPages();
 var app = builder.Build();
 
 //comment out the below line to run the program locally, make sure to uncomment it before pushing.
-app.UseAzureAppConfiguration();
+//app.UseAzureAppConfiguration();
 
 //app.MapGet("/", () => "Hello World!");
 

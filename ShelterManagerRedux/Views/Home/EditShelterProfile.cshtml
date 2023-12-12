@@ -1,77 +1,78 @@
 ﻿@model List<ShelterManagerRedux.Models.ShelterProfile>
 
 
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Edit Profile </title>
-        <link rel="stylesheet" href="site.css">
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Edit Profile </title>
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
 
-        <div class="c1">
-            <h1 class="Title">Edit Profile</h1>
-           
-            <div class="row">
-                <div class="col">
-                    <div class="text-center">
-                        <h4>Shelter Manager Photo (Optional)</h4>
-                        <img src="https://emedia1.nhs.wales/HEIW2/cache/file/F4C33EF0-69EE-4445-94018B01ADCF6FD4.png" class="photo img-thumbnail" alt="Manager Photo">
-                        <input type="file" class="form-control">
+    <div class="c1">
+        <h1 class="Title">Edit Profile</h1>
+
+        <div class="row">
+            <div class="col">
+                <div class="text-center">
+                    <h4>Shelter Manager Photo (Optional)</h4>
+                    <img src="https://emedia1.nhs.wales/HEIW2/cache/file/F4C33EF0-69EE-4445-94018B01ADCF6FD4.png" class="photo img-thumbnail" alt="Manager Photo">
+                    <input type="file" class="form-control">
+                </div>
+                <br />
+                <div class="text-center">
+                    <h4>Shelter Logo (Optional)</h4>
+                    <img src="https://emedia1.nhs.wales/HEIW2/cache/file/F4C33EF0-69EE-4445-94018B01ADCF6FD4.png" class="photo img-thumbnail" alt="Shetlter Logo">
+                    <input type="file" class="form-control">
+                </div>
+            </div>
+
+            <div class="col personal-info">
+                <h3>Shelter Information</h3>
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Shelter name:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" placeholder="Enter Shelter Name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Contact name:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" placeholder="Enter Name of Shelter Manager" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Phone Number:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" placeholder="(XXX) XXX-XXXX" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" placeholder="example@gmail.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Operation Hours:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" placeholder="X AM - X PM" required>
+                        </div>
                     </div>
                     <br />
-                    <div class="text-center">
-                        <h4>Shelter Logo (Optional)</h4>
-                        <img src="https://emedia1.nhs.wales/HEIW2/cache/file/F4C33EF0-69EE-4445-94018B01ADCF6FD4.png" class="photo img-thumbnail" alt="Shetlter Logo">
-                        <input type="file" class="form-control">
-                    </div>
-                </div>
-
-                <div class="col personal-info">
-                    <h3>Shelter Information</h3>
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Shelter name:</label>
-                            <div class="col-lg-8">
-                                <input class="form-control" type="text" placeholder="Enter Shelter Name" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Contact name:</label>
-                            <div class="col-lg-8">
-                                <input class="form-control" type="text" placeholder="Enter Name of Shelter Manager" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Phone Number:</label>
-                            <div class="col-lg-8">
-                                <input class="form-control" type="text" placeholder="(XXX) XXX-XXXX" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Email:</label>
-                            <div class="col-lg-8">
-                                <input class="form-control" type="text" placeholder="example@gmail.com" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Operation Hours:</label>
-                            <div class="col-lg-8">
-                                <input class="form-control" type="text" placeholder="X AM - X PM" required>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="saveButton"
+                    <div class="saveButton"
                         <p align="right">
                         <a href="ShelterProfile" class="btn"><center>Save Changes</center></a>
                         </p>
                         </div>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
+s
