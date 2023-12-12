@@ -25,7 +25,21 @@ public class UserController : Controller
     public IActionResult Create(Manager model)
     {
 
+        //test if this works 
+        /*
+                IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+                string connectionString = config.GetSection("Connnectionstrings:MyConnection").Value;
+                ManagerContext mm = new ManagerContext(connectionString);
 
+                var query = from m in mm.Manager
+                            orderby m.ManagerID
+                            select m;
+
+
+                List<Manager> myData = query.ToList();
+
+                return View(myData);
+        */
 
 
         if (ModelState.IsValid)
