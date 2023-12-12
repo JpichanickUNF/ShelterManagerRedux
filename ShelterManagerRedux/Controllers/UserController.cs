@@ -12,11 +12,11 @@ public class UserController : Controller
         _context = new ManagerContext(connectionString);
     }
 
-    [HttpGet]
-    public IActionResult Create()
-    {
-        return View();
-    }
+    //[HttpGet]
+    //public IActionResult Create()
+    //{
+    //    return View();
+    //}
 
 
 
@@ -24,6 +24,7 @@ public class UserController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Create(Manager model)
     {
+
 
 
 
