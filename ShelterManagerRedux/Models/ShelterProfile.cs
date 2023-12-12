@@ -8,16 +8,18 @@ namespace ShelterManagerRedux.Models
     public class ShelterProfile
     {
         [Key]
+        [Required(ErrorMessage = "Shelter ID  is required")]
+        public int ShelterID { get; set; }
         [Required(ErrorMessage = "Shelter Name  is required")]
-        public string ShelterName { get; set; }
-        [Required(ErrorMessage = "Manager Name  is required")]
-        public string ManagerName { get; set; }
+        public string Shelter_name { get; set; }
+
+        public string Contact_name { get; set; }
+
         [Required(ErrorMessage = "Phone Number  is required")]
-        public string PhoneNumber { get; set; }
+        public int Phone_number { get; set; }
         [Required(ErrorMessage = "Email Address is required")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Operating Hours are required")]
-        public string Hours { get; set; }
-
+        public int Operation_hours { get; set; }
     }
 }

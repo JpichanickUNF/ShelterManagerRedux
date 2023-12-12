@@ -11,20 +11,52 @@
 </head>
 <body>
 
+
+    <table align="center" border="1" style="border:1px solid black; background-color:white; font-size:25px; border-spacing: 30px;">
+
+
+        @foreach (ShelterProfile w in Model)
+        {
+            <tr style="border:solid;">
+                <td align="center">
+                    @w.ShelterID
+                </td>
+                <td align="center">
+                    @w.Shelter_name
+                </td>
+                <td align="center">
+                    @w.Contact_name
+                </td>
+                <td align="center">
+                    @w.Phone_number
+                </td>
+                <td align="center">
+                    @w.Email
+                </td>
+                <td align="center">
+                    @w.Operation_hours
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <br />
+
     <section class="main">
         <div class="profile-card">
 
             <div class="data">
                 <h2>City Rescue Mission</h2>
-                <div class="logo">
+                @*<div class="logo">
                     <img src="https://www.crmjax.org/wp-content/uploads/2018/11/logo_tr.png" alt="" class="logo">
-                </div>
+                </div>*@
                 <br />
                 <span>Contact: Mike Evans</span>
             </div>
-            <div class="image">
+            @*<div class="image">
                 <img src="https://www.crmjax.org/wp-content/uploads/2015/07/MikeEvans.jpg" alt="" class="image">
-            </div>
+            </div>*@
             <div class="row">
                 <div class="info">
                     <h3>Phone Number</h3>

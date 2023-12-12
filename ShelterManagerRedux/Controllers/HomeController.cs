@@ -67,10 +67,23 @@ namespace ShelterManagerRedux.Controllers
         {
             return View();
         }
+
         public IActionResult ShelterProfile()
         {
-            return View();
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+            string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
+
+            ShelterProfileContext dw = new ShelterProfileContext(connStr);
+
+            var query = from w in dw.ShelterProfile
+                        orderby w.ShelterID
+                        select w;
+
+            List<ShelterProfile> myData = query.ToList();
+
+            return View(myData);
         }
+
         public IActionResult EditShelterProfile()
         {
             return View();
