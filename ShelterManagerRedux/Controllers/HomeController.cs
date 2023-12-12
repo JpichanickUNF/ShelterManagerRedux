@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NuGet.Versioning;
 using ShelterManagerRedux.DataAccess;
@@ -35,22 +36,13 @@ namespace ShelterManagerRedux.Controllers
         }
       
 
-
-        
-        public IActionResult ClientView()
+        public ActionResult ClientView()
         {
-            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
-            string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
-
-            ClientViewContext cv = new ClientViewContext(connStr);
-
-            var query = from v in cv.ClientView
-                        select v;
-
-            List<ClientView> myData = query.ToList();
-
-            return View(myData);
+            return this.RedirectToAction("ClientView", "ClientView");
         }
+        
+        
+
 
 
         public IActionResult FAQ()
