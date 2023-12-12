@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class Manager
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ManagerID { get; set; }
 
     [Required(ErrorMessage = "First Name is required.")]

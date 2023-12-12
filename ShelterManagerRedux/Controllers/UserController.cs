@@ -34,11 +34,11 @@ public class UserController : Controller
                 ManagerID = 0,
                 Firstname = model.Firstname,
                 Lastname = model.Lastname,
+                Assigned_Shelter = model.Assigned_Shelter,
+                Password = model.Password,
                 Username = model.Username,
                 Email = model.Email,
-                Password = model.Password,
-                Phone_Number = model.Phone_Number,
-                Assigned_Shelter = model.Assigned_Shelter
+                Phone_Number = model.Phone_Number
             };
 
             _context.Manager.Add(manager);
