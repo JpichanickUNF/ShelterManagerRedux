@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ShelterManagerRedux.Models;
+
 
 namespace ShelterManagerRedux.DataAccess
 {
@@ -27,3 +29,5 @@ namespace ShelterManagerRedux.DataAccess
         }
     }
 }
+
+

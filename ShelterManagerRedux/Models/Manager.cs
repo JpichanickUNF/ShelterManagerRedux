@@ -2,7 +2,7 @@
 
 public class Manager
 {
-    public int Id { get; set; }
+    public int ManagerID { get; set; }
 
     [Required(ErrorMessage = "First Name is required.")]
     public string Firstname { get; set; }

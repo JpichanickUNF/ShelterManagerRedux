@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 public class UserController : Controller
 {
     private readonly ManagerContext _context;
-
-    public UserController()
+    public UserController(IConfiguration config)
     {
-        IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
-        string connectionString = "Connnectionstrings:MyConnection";
+        string connectionString = config.GetSection("ConnectionStrings:MyConnection").Value;
         _context = new ManagerContext(connectionString);
     }
 
@@ -20,10 +18,15 @@ public class UserController : Controller
         return View();
     }
 
+
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Create(Manager model)
     {
+
+
+
         if (ModelState.IsValid)
         {
             var manager = new Manager
@@ -38,11 +41,12 @@ public class UserController : Controller
             };
 
             _context.Manager.Add(manager);
-
             _context.SaveChanges();
+
 
             return RedirectToAction("Login", "Account");
         }
+
 
         return View(model);
     }
