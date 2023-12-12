@@ -31,6 +31,7 @@ public class UserController : Controller
         {
             var manager = new Manager
             {
+                ManagerID = 0,
                 Firstname = model.Firstname,
                 Lastname = model.Lastname,
                 Username = model.Username,
