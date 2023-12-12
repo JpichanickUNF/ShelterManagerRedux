@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-public class User
+public class Manager
 {
     public int Id { get; set; }
 

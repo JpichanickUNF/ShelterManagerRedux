@@ -7,9 +7,11 @@ public class UserController : Controller
 {
     private readonly ManagerContext _context;
 
-    public UserController(ManagerContext context)
+    public UserController()
     {
-        _context = context;
+        IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+        string connectionString = "Connnectionstrings:MyConnection";
+        _context = new ManagerContext(connectionString);
     }
 
     [HttpGet]
@@ -20,11 +22,11 @@ public class UserController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(User model)
+    public IActionResult Create(Manager model)
     {
         if (ModelState.IsValid)
         {
-            var manager = new User
+            var manager = new Manager
             {
                 Firstname = model.Firstname,
                 Lastname = model.Lastname,
@@ -37,7 +39,7 @@ public class UserController : Controller
 
             _context.Manager.Add(manager);
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return RedirectToAction("Login", "Account");
         }
@@ -47,7 +49,7 @@ public class UserController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> LoginView(User model)
+    public IActionResult LoginView(Manager model)
     {
         if (ModelState.IsValid)
         {
