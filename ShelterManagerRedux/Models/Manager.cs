@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 public class Manager
 {
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+   [Key]
     public int ManagerID { get; set; }
 
     [Required(ErrorMessage = "First Name is required.")]
