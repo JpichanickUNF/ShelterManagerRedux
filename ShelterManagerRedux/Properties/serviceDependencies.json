@@ -1,25 +1,27 @@
 {
   "dependencies": {
-    "appConfig2": {
-      "type": "appConfig",
-      "connectionId": "AppConfig",
-      "dynamicId": null
-    },
     "compute.appService1": {
       "group": "connections",
       "type": "compute.appService"
-    },
-    "secrets1": {
-      "type": "secrets"
     },
     "appConfig1": {
       "type": "appConfig",
       "connectionId": "AppConfig",
       "dynamicId": null
     },
+    "secrets1": {
+      "type": "secrets",
+      "connectionId": "VaultUri",
+      "dynamicId": null
+    },
     "mssql1": {
       "type": "mssql",
       "connectionId": "Connnectionstrings:MyConnection",
+      "dynamicId": null
+    },
+    "appConfig2": {
+      "type": "appConfig",
+      "connectionId": "AppConfig",
       "dynamicId": null
     }
   }
