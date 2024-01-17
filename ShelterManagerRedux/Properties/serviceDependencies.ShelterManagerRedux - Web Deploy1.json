@@ -7,14 +7,6 @@
       "type": "appConfig.azure",
       "connectionId": "AppConfig",
       "dynamicId": null
-    },
-    "mssql1": {
-      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/ShelterManagerRedux/providers/Microsoft.ServiceLinker/linkers/ConnnectionstringsMyConnection_8531BC38AD",
-      "secretStore": "AzureAppSettings",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/clientmanager-devcorp/databases/ShelterManagerRedux",
-      "type": "mssql.azure",
-      "connectionId": "Connnectionstrings:MyConnection",
-      "dynamicId": null
     }
   }
 }
