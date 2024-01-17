@@ -14,6 +14,10 @@
       "type": "appConfig",
       "connectionId": "AppConfig",
       "dynamicId": null
+    },
+    "compute.appService1": {
+      "group": "connections",
+      "type": "compute.appService"
     }
   }
 }
