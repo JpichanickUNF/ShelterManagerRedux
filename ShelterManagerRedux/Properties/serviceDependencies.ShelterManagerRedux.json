@@ -1,20 +1,16 @@
 {
   "dependencies": {
-    "appConfig2": {
-      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/ShelterManagerRedux/providers/Microsoft.ServiceLinker/linkers/AppConfig_3D2BFE1B18",
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/clientmanager-devcorp/databases/ShelterManagerDB",
+      "type": "mssql.azure",
+      "connectionId": "Connnectionstrings:MyConnection"
+    },
+    "appConfig1": {
       "secretStore": "AzureAppSettings",
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.AppConfiguration/configurationStores/sheltermanager",
       "type": "appConfig.azure",
-      "connectionId": "AppConfig",
-      "dynamicId": null
-    },
-    "mssql1": {
-      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/ShelterManagerRedux/providers/Microsoft.ServiceLinker/linkers/ConnnectionstringsMyConnection_8531BC38AD",
-      "secretStore": "AzureAppSettings",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/azure-clientmanager-devcorp/databases/ClientManagement",
-      "type": "mssql.azure",
-      "connectionId": "Connnectionstrings:MyConnection",
-      "dynamicId": null
+      "connectionId": "AppConfig"
     }
   }
 }

@@ -55,16 +55,8 @@
               "sku": {
                 "name": "free"
               },
-              "systemData": {
-                "createdBy": "n01494019@unf.edu",
-                "createdByType": "User",
-                "createdAt": "2023-11-21T15:25:02-05:00",
-                "lastModifiedBy": "n01494019@unf.edu",
-                "lastModifiedByType": "User",
-                "lastModifiedAt": "2023-11-21T15:25:04-05:00"
-              },
               "name": "ShelterManager",
-              "apiVersion": "2022-05-01"
+              "apiVersion": "2020-06-01"
             }
           ]
         }
