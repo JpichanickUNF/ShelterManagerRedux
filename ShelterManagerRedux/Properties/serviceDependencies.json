@@ -3,14 +3,6 @@
     "compute.appService1": {
       "group": "connections",
       "type": "compute.appService"
-    },
-    "appConfig1": {
-      "type": "appConfig",
-      "connectionId": "AppConfig"
-    },
-    "mssql1": {
-      "type": "mssql",
-      "connectionId": "Connnectionstrings:MyConnection"
     }
   }
 }
