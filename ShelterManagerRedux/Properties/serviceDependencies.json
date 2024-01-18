@@ -10,6 +10,10 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "Connnectionstrings:MyConnection"
+    },
+    "appConfig1": {
+      "type": "appConfig",
+      "connectionId": "AppConfig"
     }
   }
 }

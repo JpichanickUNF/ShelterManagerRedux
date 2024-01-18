@@ -13,6 +13,12 @@
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/clientmanager-devcorp/databases/ShelterManagerDB",
       "type": "mssql.azure",
       "connectionId": "Connnectionstrings:MyConnection"
+    },
+    "appConfig1": {
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.AppConfiguration/configurationStores/sheltermanager",
+      "type": "appConfig.azure",
+      "connectionId": "AppConfig"
     }
   }
 }
