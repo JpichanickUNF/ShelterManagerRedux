@@ -2,7 +2,8 @@ using Azure.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 string connectionString = builder.Configuration["Connnectionstrings:MyConnection"];
-
+//////////////
+/*
 // Add Azure App Configuration to the container.
 var azAppConfigConnection = builder.Configuration["AppConfig"];
 if (!string.IsNullOrEmpty(azAppConfigConnection))
@@ -38,17 +39,18 @@ builder.Services.AddAzureAppConfiguration();
 
 // Load config from Azure App Configuration
 //builder.Configuration.AddAzureAppConfiguration(connectionString);
-
+*/
+//////////////
 builder.Services.AddRazorPages();
 
 
 var app = builder.Build();
-
+//////////////
 //comment out the below line to run the program locally, make sure to uncomment it before pushing.
 //app.UseAzureAppConfiguration();
 
 //app.MapGet("/", () => "Hello World!");
-
+//////////////
 app.UseRouting();
 app.UseStaticFiles();
 app.UseEndpoints(endpoints =>
