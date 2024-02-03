@@ -34,14 +34,14 @@ namespace ShelterManagerRedux.Controllers
         {
             return View();
         }
-      
+
 
         public ActionResult ClientView()
         {
             return this.RedirectToAction("ClientView", "ClientView");
         }
-        
-        
+
+
 
 
 
@@ -89,7 +89,19 @@ namespace ShelterManagerRedux.Controllers
             return View();
         }
 
+        [Route("ClientManager")]
         public IActionResult ClientManager()
+        {
+            return ClientManagerMaster("");
+        }
+        [Route("ClientManager/{Filter}")]
+        public IActionResult ClientManager(string Filter)
+        {
+            return ClientManagerMaster(Filter);
+        }
+
+
+        public IActionResult ClientManagerMaster(string Filter)
         {
 
             List<Client> Clients = new List<Client>();
@@ -102,15 +114,29 @@ namespace ShelterManagerRedux.Controllers
 
             ShelterLocationContext slc = new ShelterLocationContext(connStr);
             var shelterLocations = from c in slc.ShelterLocations orderby c.Shelter_Location_Description select c;
-             SelectList sl = new SelectList(shelterLocations,"Shelter_Location_ID","Shelter_Location_Description");
+            SelectList sl = new SelectList(shelterLocations, "Shelter_Location_ID", "Shelter_Location_Description");
             ViewBag.ShelterLocations = shelterLocations;
 
-            var query = from c in cc.Clients
+            List<Client> myData = null;
+            
+            if (Filter.Length > 0)
+            {
+                var query = from c in cc.Clients
+                        join s in cc.ShelterLocations on c.Shelter_Location_ID equals s.Shelter_Location_ID
+                        where c.F_Name == Filter
+                        orderby c.L_Name
+                        select c;
+                myData = query.ToList();
+            }
+            else
+            {
+                var query = from c in cc.Clients
                         join s in cc.ShelterLocations on c.Shelter_Location_ID equals s.Shelter_Location_ID
                         orderby c.L_Name
                         select c;
+                myData = query.ToList();
+            }
 
-            List<Client> myData = query.ToList();
 
             return View(myData);
         }
@@ -127,7 +153,7 @@ namespace ShelterManagerRedux.Controllers
             ViewBag.ShelterLocations = shelterLocations;
             Client theClient = cc.Clients.Find(Client_ID);
 
-            if(theClient == null)
+            if (theClient == null)
             {
                 theClient = new Client();
             }
@@ -147,32 +173,32 @@ namespace ShelterManagerRedux.Controllers
             //{
 
 
-                if (c.ClientID == 0)
+            if (c.ClientID == 0)
+            {
+                //no client id, therefore insert
+                using (ClientContext cc = new ClientContext(connStr))
                 {
-                    //no client id, therefore insert
-                    using (ClientContext cc = new ClientContext(connStr))
-                    {
-                        cc.Clients.Add(c);
-                        cc.SaveChanges();
-                    }
+                    cc.Clients.Add(c);
+                    cc.SaveChanges();
                 }
-                else
+            }
+            else
+            {
+                //have client id, so update
+                using (ClientContext db = new ClientContext(connStr))
                 {
-                    //have client id, so update
-                    using (ClientContext db = new ClientContext(connStr))
-                    {
-                        db.Entry(c).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                    }
+                    db.Entry(c).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
                 }
-                return View(null);
+            }
+            return View(null);
             //}
             //else
             //{
             //    ViewBag.ErrorMessage = "First Name and Last Name are required!";
             //    return View(c);
             //}
-            
+
 
         }
 
@@ -210,8 +236,8 @@ namespace ShelterManagerRedux.Controllers
         }
 
         public IActionResult LoginView()
-       {
-           return View();
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -219,12 +245,12 @@ namespace ShelterManagerRedux.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        
-
-        
 
 
- 
 
-}
+
+
+
+
+    }
 }

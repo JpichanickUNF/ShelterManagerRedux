@@ -46,7 +46,8 @@
 else if (ViewBag.ErrorMessage.Length == 0)
 {
     <script>
-        opener.location.reload();
+        @* opener.location.reload(); *@
+    opener.location = '/ClientManager/';
         self.close();
     </script>
 }
