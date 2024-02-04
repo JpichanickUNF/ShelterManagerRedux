@@ -45,7 +45,7 @@ namespace ShelterManagerRedux.Controllers
 
 
 
-        public IActionResult FAQ()
+        public IActionResult Help()
         {
 
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();

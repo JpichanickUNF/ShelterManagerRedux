@@ -1,0 +1,86 @@
+﻿@model List<ShelterManagerRedux.Models.FrequentlyAskedQuestions>
+
+
+    <!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <title>Help Page</title>
+    </head>
+    <body>
+
+
+        <style>
+            td {
+                border: solid;
+            }
+        </style>
+
+
+        @{
+            ViewData["Title"] = "Frequently Asked Questions";
+        }
+        <h1>@ViewData["Title"]</h1>
+        <table align="left" border="1" style="border:1px solid black; background-color:white; font-size:25px; border-spacing: 30px;">
+            @foreach (FrequentlyAskedQuestions f in Model)
+            {
+
+                <tr style="border:solid;">
+                    <td>
+                        @f.Question
+                    </td>
+                    <td>
+                        @f.Answer
+                    </td>
+                </tr>
+            }
+        </table>
+
+
+        <center>
+            <link href="site.css" rel="stylesheet">
+            <div id="contact">
+                <h3 class="h3">Contact us</h3>
+                <p>Phone Number: (904) 123-4567</p>
+                <p>
+                    Address: 123 Corporate Drive
+                    Jacksonville, FL
+                    32224
+                </p>
+
+                <h3 class="h3">Want to send us a message?</h3>
+
+
+
+                <form action="mailto:N014753672@unf.edu" method="post" enctype="text/plain">
+                    <div class="contact-group">
+                        <label for="Name" class="label">Full Name</label>
+                        <div class="input">
+                            <input type="text" id="Name" name="Name" cols="50" class="conact-control" required>
+                        </div>
+                    </div>
+                    <div class="contact-group">
+                        <label for="Email" class="label">Email Address</label>
+                        <div class="input">
+                            <input type="email" id="Email" cols="50" name="Email" class="contact-control" required>
+                        </div>
+                    </div>
+                    <div class="contact-group">
+                        <label for="Message" class="label">Your Message to The Shelter Manager Team</label>
+                        <div class="input">
+                            <textarea id="Message" name="Message" class="contact-control" cols="50" rows="6" maxlength="1000" required></textarea>
+                        </div>
+                    </div>
+                    <div class="contact-group">
+                        <input type="submit" value="Send Message">
+                    </div>
+                </form>
+            </div>
+        </center>
+    </body>
+    </html>
+
+
+
+
+
+
