@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
     public class Manager
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ManagerID { get; set; }
 
         [Required]

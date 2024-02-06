@@ -250,7 +250,7 @@ namespace ShelterManagerRedux.Controllers
 
 
 
-            return View(manager);
+            return View("Index");
         }
 
 
