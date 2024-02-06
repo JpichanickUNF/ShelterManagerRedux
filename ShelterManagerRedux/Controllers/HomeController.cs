@@ -232,7 +232,20 @@ namespace ShelterManagerRedux.Controllers
         {
             return View();
         }
-        
+        [HttpPost]
+        public ActionResult Create(Manager manager)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Managers.Add(manager);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+
+
+            return View(manager);
+        }
 
 
         public IActionResult Success()

@@ -6,6 +6,7 @@ namespace ShelterManagerRedux.DataAccess
 {
     public class ManagerContext : DbContext
     {
+        /*
         public ManagerContext(string connString) : base(GetOptions(connString))
         {
         }
@@ -17,16 +18,17 @@ namespace ShelterManagerRedux.DataAccess
 
             return optionsBuilder.Options;
         }
+        */
+        public DbSet<Manager> Managers { get; set; }
 
-        public DbSet<Manager> Manager { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Manager>().ToTable("ManagerAccount");
+        /* protected override void OnModelCreating(ModelBuilder modelBuilder)
+         {
+             modelBuilder.Entity<Manager>().ToTable("ManagerAccount");
 
 
-            base.OnModelCreating(modelBuilder);
-        }
+             base.OnModelCreating(modelBuilder);
+         }
+        */
     }
 }
 
