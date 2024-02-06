@@ -1,4 +1,7 @@
 ﻿@model Manager
+@{
+    ViewBag.Title = "Create";
+}
 
 <h2>Create Account</h2>
 
@@ -40,5 +43,5 @@
         <span asp-validation-for="Assigned_Shelter"></span>
     </div>
 
-    <button asp-action="Index" type="submit" class="btn btn-primary" onclick="Create(Manager)">Create Account</button>
+    <button type="submit" class="btn btn-primary">Create Account</button>
 </form>

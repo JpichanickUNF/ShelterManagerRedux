@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 public class UserController : Controller
 {
+    /*
     private readonly ManagerContext _context;
     public UserController(IConfiguration config)
     {
@@ -82,4 +83,5 @@ public IActionResult ChangePassword()
 {
 return View();
 }
+    */
 }
