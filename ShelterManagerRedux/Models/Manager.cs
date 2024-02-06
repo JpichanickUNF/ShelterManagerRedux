@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class Manager
+namespace ShelterManagerRedux.Models
 {
-    namespace ShelterManagerRedux.Models
+    public class Manager
     {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
