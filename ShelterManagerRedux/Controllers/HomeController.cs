@@ -235,22 +235,28 @@ namespace ShelterManagerRedux.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Manager manager)
+        public ActionResult Create(Manager model)
         {
+
             if (ModelState.IsValid)
             {
-                _context.Managers.Add(manager);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            // Debugging
-            foreach (var modelState in ModelState.Values)
-            {
-                foreach (var error in modelState.Errors)
+                var newManager = new Manager
                 {
-                    Console.WriteLine(error.ErrorMessage);
-                }
+                    ManagerID = 0,
+                    Firstname = model.Firstname,
+                    Lastname = model.Lastname,
+                    Assigned_Shelter = model.Assigned_Shelter,
+                    Password = model.Password,
+                    Username = model.Username,
+                    Email = model.Email,
+                    Phone_Number = model.Phone_Number
+                };
+
+                _context.Manager.Add(newManager);
+                _context.SaveChanges();
+
+
+                return RedirectToAction("Index");
             }
 
             return View(manager);
