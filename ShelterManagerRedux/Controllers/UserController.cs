@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 public class UserController : Controller
 {
+    /*
     private readonly ManagerContext _context;
     public UserController(IConfiguration config)
     {
@@ -25,8 +26,7 @@ public class UserController : Controller
     public IActionResult Create(Manager model)
     {
 
-        //test if this works 
-/*
+ 
         IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
         string connectionString = config.GetSection("Connnectionstrings:MyConnection").Value;
         ManagerContext mm = new ManagerContext(connectionString);
@@ -38,33 +38,31 @@ public class UserController : Controller
 
         List<Manager> myData = query.ToList();
 
-        return View(myData);
-*/
 
 
-if (ModelState.IsValid)
-{
-    var manager = new Manager
-    {
-        ManagerID = 0,
-        Firstname = model.Firstname,
-        Lastname = model.Lastname,
-        Assigned_Shelter = model.Assigned_Shelter,
-        Password = model.Password,
-        Username = model.Username,
-        Email = model.Email,
-        Phone_Number = model.Phone_Number
-    };
 
-    _context.Manager.Add(manager);
-    _context.SaveChanges();
+    if (ModelState.IsValid){
+        var manager = new Manager
+        {
+            ManagerID = 0,
+            Firstname = model.Firstname,
+            Lastname = model.Lastname,
+            Assigned_Shelter = model.Assigned_Shelter,
+            Password = model.Password,
+            Username = model.Username,
+            Email = model.Email,
+            Phone_Number = model.Phone_Number
+        };
 
-
-    return RedirectToAction("Create", "Account");
-}
+        _context.Manager.Add(manager);
+        _context.SaveChanges();
 
 
-return View(model);
+        return RedirectToAction("Create", "Account");
+    }
+
+
+        return View(model);
 
     }
 
@@ -85,4 +83,5 @@ public IActionResult ChangePassword()
 {
 return View();
 }
+    */
 }

@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ShelterManagerRedux.Models;
 
 
-    public class Manager
+public class Manager
     {
     /*
     [Key]
