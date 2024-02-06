@@ -22,7 +22,7 @@ namespace ShelterManagerRedux.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Manager>().ToTable("Managers");
+            modelBuilder.Entity<Manager>().ToTable("ManagerAccount");
 
 
             base.OnModelCreating(modelBuilder);
