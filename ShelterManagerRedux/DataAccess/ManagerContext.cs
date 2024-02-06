@@ -19,7 +19,7 @@ namespace ShelterManagerRedux.DataAccess
             return optionsBuilder.Options;
         }
         */
-        public DbSet<Manager> Manager { get; set; }
+        public DbSet<Manager> Managers { get; set; }
 
        /* protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
