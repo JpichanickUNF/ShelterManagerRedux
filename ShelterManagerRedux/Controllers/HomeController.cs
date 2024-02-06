@@ -16,14 +16,12 @@ namespace ShelterManagerRedux.Controllers
 
         public int Shelter1Cots = 25, Shelter2Cots = 30, Shelter3Cots = 19;
         
-        private ManagerContext _context;
 
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
             
-            _context = new ManagerContext();
         }
 
         public IActionResult Index()
