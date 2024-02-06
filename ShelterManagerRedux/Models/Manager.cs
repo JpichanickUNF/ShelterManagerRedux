@@ -7,7 +7,7 @@ public class Manager
     public int ManagerID { get; set; }
 
     [Required(ErrorMessage = "First Name is required.")]
-    public string Firstname { get; set; }
+    public string? Firstname { get; set; }
 
     [Required(ErrorMessage = "Last Name is required.")]
     public string Lastname { get; set; }
