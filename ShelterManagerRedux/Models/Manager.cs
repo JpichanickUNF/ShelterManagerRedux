@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ShelterManagerRedux.Models
-{
+
     public class Manager
     {
+    /*
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ManagerID { get; set; }
@@ -31,8 +31,8 @@ namespace ShelterManagerRedux.Models
 
     [Required]
     public string AssignedShelter { get; set; }
-
-    /*[Key]
+    */
+    [Key]
      public int ManagerID { get; set; }
 
      [Required(ErrorMessage = "First Name is required.")]
@@ -58,6 +58,5 @@ namespace ShelterManagerRedux.Models
 
      [Required(ErrorMessage = "Assigned Shelter is required.")]
      public string Assigned_Shelter { get; set; }
-    */
+    
     }
-}

@@ -1,7 +1,4 @@
 ﻿@model Manager
-@{
-    ViewBag.Title = "Create";
-}
 
 <h2>Create Account</h2>
 
@@ -22,9 +19,9 @@
     </div>
 
     <div>
-        <label asp-for="PhoneNumber"></label>
-        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-        <span asp-validation-for="PhoneNumber"></span>
+        <label asp-for="Phone_Number"></label>
+        <input asp-for="Phone_Number" />
+        <span asp-validation-for="Phone_Number"></span>
     </div>
 
     <div class="form-group">
@@ -38,10 +35,10 @@
     </div>
 
     <div>
-        <label asp-for="AssignedShelter">Assigned Shelter:</label>
-        <input asp-for="AssignedShelter" />
-        <span asp-validation-for="AssignedShelter"></span>
+        <label asp-for="Assigned_Shelter">Assigned Shelter:</label>
+        <input asp-for="Assigned_Shelter" />
+        <span asp-validation-for="Assigned_Shelter"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Create Account</button>
+    <button asp-action="Index" type="submit" class="btn btn-primary" onclick="Create(Manager)">Create Account</button>
 </form>
