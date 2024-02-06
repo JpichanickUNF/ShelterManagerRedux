@@ -244,8 +244,18 @@ namespace ShelterManagerRedux.Controllers
                 return RedirectToAction("Index");
             }
 
+            // Debugging
+            foreach (var modelState in ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+            }
+
             return View(manager);
         }
+
 
         public IActionResult Success()
         {
