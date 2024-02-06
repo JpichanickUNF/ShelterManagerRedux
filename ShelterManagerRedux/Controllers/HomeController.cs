@@ -15,6 +15,7 @@ namespace ShelterManagerRedux.Controllers
         private readonly ILogger<HomeController> _logger;
 
         public int Shelter1Cots = 25, Shelter2Cots = 30, Shelter3Cots = 19;
+
         //self note
         private ManagerContext _context;
 
@@ -23,6 +24,7 @@ namespace ShelterManagerRedux.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+
             //self note 
             _context = new ManagerContext();
 
@@ -240,12 +242,11 @@ namespace ShelterManagerRedux.Controllers
         [HttpPost]
         public ActionResult Create(Manager manager)
         {
-            if (ModelState.IsValid)
-            {
+
                 _context.Managers.Add(manager);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
-            }
+            
 
 
 
