@@ -2,11 +2,31 @@
     ViewData["Title"] = "Home Page";
 }
 
+<style>
+    table 
+    {
+        border-collapse: separate;
+        border-spacing: 5px;
+        margin: 0 auto;
+    }
+    td 
+    {
+        padding: 8px;
+        text-align: center;
+    }
+</style>
+
 <div class="text-center">
-    <h1 class="display-4">Welcome to The Shelter Manager - Azure24</h1>
-    <h2>Joshua, Brandon, Kelli, Jordan</h2>
-    <a asp-action="Create">Create Account</a>
-    <a asp-action="LoginView">Login</a>
-    <a asp-action="ClientView">Client View</a>
-    <a asp-action="ChangePassword">Change Password</a>
+
+    <h1 class="display-4">Welcome to The Shelter Manager</h1>
+    @*  <h2>Joshua, Brandon, Kelli, Jordan</h2> *@
+    <table>
+        <tr>
+            <td><a asp-action="Create">Create Account</a></td>
+            <td><a asp-action="LoginView">Login</a></td>
+            <td><a asp-action="ClientView">Client View</a></td>
+            <td><a asp-action="ChangePassword">Change Password</a></td>
+        </tr>
+    </table>
+
 </div>
