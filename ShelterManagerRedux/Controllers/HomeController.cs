@@ -262,6 +262,7 @@ namespace ShelterManagerRedux.Controllers
             return View("Index");
 
         }
+        [HttpGet]
         public IActionResult LoginView()
         {
             return View();
@@ -269,28 +270,31 @@ namespace ShelterManagerRedux.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult LoginView(Manager model)
+        public IActionResult LoginView(Manager m)
         {
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
-            string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
+            string connectionString = config.GetSection("Connnectionstrings:MyConnection").Value;
 
           
 
                 // authenticate manager in context
-                Manager authenticatedManager = _context.AuthenticateManager(model.Username, model.Password);
+                Manager authenticatedManager = _context.AuthenticateManager(m.Username, m.Password);
+            ViewBag.ErrorMessage = "the code has made it to the home controller";
 
-                if (authenticatedManager != null)
+            if (authenticatedManager != null)
                 {
                     // successful login, store session
                     SetManagerInSession(authenticatedManager.ManagerID);
-
+                    ViewBag.LoginMessage = "Login successful!";
                     return RedirectToAction("DisplaySuccessMessage", "Home");
                 }
                 else
                 {
                     // fail login
                     ModelState.AddModelError(string.Empty, "Invalid username or password");
-                    return View(model);
+                    ViewBag.ErrorMessage = "Invalid username or password";
+
+                    return View(m);
                 }
                 //if program gives error, there is nothing returned right here  
 
@@ -298,7 +302,6 @@ namespace ShelterManagerRedux.Controllers
         private void SetManagerInSession(int managerId)
         {
             HttpContext.Session.SetInt32("ManagerID", managerId);
-
         }
         public IActionResult DisplaySuccessMessage()
         {
