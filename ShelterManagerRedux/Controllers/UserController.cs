@@ -19,7 +19,7 @@ namespace ShelterManagerRedux.Controllers
             string connectionString = config.GetSection("ConnectionStrings:MyConnection").Value;
             _context = new ManagerContext(connectionString);
         }
-
+        */
         [HttpGet]
         public IActionResult Create()
         {
@@ -27,27 +27,39 @@ namespace ShelterManagerRedux.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Manager model)
+        public IActionResult Create(Manager m)
         {
 
 
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
             string connectionString = config.GetSection("Connnectionstrings:MyConnection").Value;
+            ViewBag.ErrorMessage = "";
+            /*
             ManagerContext mm = new ManagerContext(connectionString);
+            Manager theManager = mm.Managers.Find(ManagerID);
 
-            var query = from m in mm.Manager
+            var query = from m in mm.Managers
                         orderby m.ManagerID
                         select m;
 
 
             List<Manager> myData = query.ToList();
 
+            */
 
 
-
-            if (ModelState.IsValid) {
+            if (m.ManagerID == 0)
+            {
+                //no client id, therefore insert
+                using (ManagerContext mm = new ManagerContext(connectionString))
+                {
+                    mm.Managers.Add(m);
+                    mm.SaveChanges();
+                }
+                /*
                 var manager = new Manager
                 {
+                    
                     ManagerID = 0,
                     Firstname = model.Firstname,
                     Lastname = model.Lastname,
@@ -56,17 +68,21 @@ namespace ShelterManagerRedux.Controllers
                     Username = model.Username,
                     Email = model.Email,
                     Phone_Number = model.Phone_Number
-                };
+                    
 
+                };
+                
                 _context.Manager.Add(manager);
                 _context.SaveChanges();
-
+               
 
                 return RedirectToAction("Create", "Account");
+                 */
             }
 
 
-            return View(model);
+
+            return View("Index");
 
         }
 
@@ -87,6 +103,6 @@ namespace ShelterManagerRedux.Controllers
         {
             return View();
         }
-    */
-}
+
+    }
 }

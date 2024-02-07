@@ -240,18 +240,42 @@ namespace ShelterManagerRedux.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Manager manager)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Manager m)
         {
 
-                _context.Managers.Add(manager);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            
+
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+            string connectionString = config.GetSection("Connnectionstrings:MyConnection").Value;
+            ViewBag.ErrorMessage = "";
+            if (m.ManagerID == 0)
+            {
+                //no client id, therefore insert
+                using (ManagerContext mm = new ManagerContext(connectionString))
+                {
+                    mm.Managers.Add(m);
+                    mm.SaveChanges();
+                }
+            }
 
 
 
             return View("Index");
+
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult LoginView(Manager model)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(model);
+        }
+
 
 
         public IActionResult Success()

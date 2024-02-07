@@ -43,5 +43,21 @@
         <span asp-validation-for="AssignedShelter"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Create Account</button>
+    <button type="submit" class="btn btn-primary" onclick="return ValidateForm();">Create Account</button>
 </form>
+<script>
+    function ValidateForm() {
+        var Firstname = document.getElementById('Firstname').value;
+        if (Firstname == null || Firstname.length == 0) {
+            alert("First Name is Required!");
+            return false;
+        }
+
+        var Lastname = document.getElementById('Lastname').value;
+        if (Lastname == null || Lastname.length == 0) {
+            alert("Last Name is Required!");
+            return false;
+        }
+        return true;
+    }
+</script>

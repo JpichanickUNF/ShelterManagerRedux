@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+namespace ShelterManagerRedux.Models
 
+{
     public class Manager
     {
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ManagerID { get; set; }
 
         [Required]
@@ -59,3 +61,4 @@ using System.ComponentModel.DataAnnotations.Schema;
          public string Assigned_Shelter { get; set; }
         */
     }
+}
