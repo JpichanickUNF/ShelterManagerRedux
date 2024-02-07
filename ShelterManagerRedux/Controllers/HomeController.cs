@@ -274,34 +274,45 @@ namespace ShelterManagerRedux.Controllers
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
             string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
 
-            if (ModelState.IsValid)
-            {
+          
 
-
-                // Assuming your ManagerContext has a method for authentication, replace it with the actual method.
+                // authenticate manager in context
                 Manager authenticatedManager = _context.AuthenticateManager(model.Username, model.Password);
 
                 if (authenticatedManager != null)
                 {
-                    // Successful login, you can store user information in a session or cookie.
-                    // For now, let's assume you have a method to set the manager ID in session.
+                    // successful login, store session
                     SetManagerInSession(authenticatedManager.ManagerID);
 
-                    return RedirectToAction("Success", "Home");
+                    return RedirectToAction("DisplaySuccessMessage", "Home");
                 }
                 else
                 {
-                    // Authentication failed, you may want to add a ModelState error.
+                    // fail login
                     ModelState.AddModelError(string.Empty, "Invalid username or password");
                     return View(model);
                 }
-            }
+                //if program gives error, there is nothing returned right here  
 
-            return View(model);
         }
         private void SetManagerInSession(int managerId)
         {
             HttpContext.Session.SetInt32("ManagerID", managerId);
+
+        }
+        public IActionResult DisplaySuccessMessage()
+        {
+            // Retrieve the login message from the session
+            string loginMessage = HttpContext.Session.GetString("LoginMessage");
+
+            // Clear the login message from the session to display it only once
+            HttpContext.Session.Remove("LoginMessage");
+
+            // Pass the message to the view
+            ViewBag.LoginMessage = loginMessage;
+
+            // Render a specific view for displaying the success message
+            return View("Success");
         }
 
 
