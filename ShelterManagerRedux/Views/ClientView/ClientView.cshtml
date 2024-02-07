@@ -1,4 +1,4 @@
-﻿@model List<ShelterManagerRedux.Models.ClientView>
+﻿@model List<ShelterManagerRedux.Models.ShelterLocation>
 @{
     ViewData["Title"] = "ClientView";
 }
@@ -15,20 +15,20 @@
         <th>Info</th>
        
     </tr>  
-    @foreach (ClientView a in Model)
+    @foreach (ShelterLocation v in Model)
       {
     <tr>
        @*  <td style="visibility: hidden;" >@a.ShelterID</td> *@
-        <td>@a.Shelter_Location_ID</td>
-        <td>@a.Shelter_Location_Description</td>  
-        <td>@a.AvailableSpace/@a.TotalSpace</td>
+        <td>@v.Shelter_Location_ID</td>
+        <td>@v.Shelter_Location_Description</td>  
+            <td>@v.Shelter_Location_Available_Room/@v.Shelter_Location_Total_Room</td>
             <td>
                 <form action="">
                     <button type="submit" onclick="">Show Interest</button>
                    @*  <button type="submit" onclick="@a.AvailableSpace == @a.AvailableSpace - 1">Show Interest</button> *@
                 </form>
             </td>
-        <td><a href="@a.Shelter_Location_Description">shelter info</a></td>
+        <td><a href="@v.Shelter_Location_Description">shelter info</a></td>
 
     </tr>
       }

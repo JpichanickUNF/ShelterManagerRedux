@@ -15,12 +15,13 @@ namespace ShelterManagerRedux.Controllers
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
             string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
 
-            ClientViewContext cv = new ClientViewContext(connStr);
+            ShelterLocationContext cv = new ShelterLocationContext(connStr);
 
-            var query = from v in cv.ClientView
+            var query = from v in cv.ShelterLocations
+                        orderby v.Shelter_Location_ID
                         select v;
 
-            List<ClientView> myData = query.ToList();
+            List<ShelterLocation> myData = query.ToList();
 
             return View(myData);
         }
