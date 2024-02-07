@@ -250,7 +250,6 @@ namespace ShelterManagerRedux.Controllers
             ViewBag.ErrorMessage = "";
             if (m.ManagerID == 0)
             {
-                //no client id, therefore insert
                 using (ManagerContext mm = new ManagerContext(connectionString))
                 {
                     mm.Managers.Add(m);
@@ -263,19 +262,47 @@ namespace ShelterManagerRedux.Controllers
             return View("Index");
 
         }
+        public IActionResult LoginView()
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult LoginView(Manager model)
         {
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+            string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
+
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Login", "Account");
+
+
+                // Assuming your ManagerContext has a method for authentication, replace it with the actual method.
+                Manager authenticatedManager = _context.AuthenticateManager(model.Username, model.Password);
+
+                if (authenticatedManager != null)
+                {
+                    // Successful login, you can store user information in a session or cookie.
+                    // For now, let's assume you have a method to set the manager ID in session.
+                    SetManagerInSession(authenticatedManager.ManagerID);
+
+                    return RedirectToAction("Success", "Home");
+                }
+                else
+                {
+                    // Authentication failed, you may want to add a ModelState error.
+                    ModelState.AddModelError(string.Empty, "Invalid username or password");
+                    return View(model);
+                }
             }
 
             return View(model);
         }
-
+        private void SetManagerInSession(int managerId)
+        {
+            HttpContext.Session.SetInt32("ManagerID", managerId);
+        }
 
 
         public IActionResult Success()
@@ -283,10 +310,7 @@ namespace ShelterManagerRedux.Controllers
             return View();
         }
 
-        public IActionResult LoginView()
-        {
-            return View();
-        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

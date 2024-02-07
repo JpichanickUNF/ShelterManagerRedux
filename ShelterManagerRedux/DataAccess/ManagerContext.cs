@@ -23,6 +23,16 @@ namespace ShelterManagerRedux.DataAccess
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+        public Manager AuthenticateManager(string username, string password)
+        {
+            // Assuming you have a Manager DbSet named "Managers"
+            // Replace "Managers" with the actual DbSet name if different
+            Manager authenticatedManager = Managers
+                .FirstOrDefault(m => m.Username == username && m.Password == password);
+
+            return authenticatedManager;
+        }
+
         /*
         public ManagerContext(string connString) : base(GetOptions(connString))
         {
