@@ -27,7 +27,18 @@ namespace ShelterManagerRedux.Controllers
         }
         public IActionResult ShowInterest()
         {
-            return View();
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+            string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
+
+            ShelterLocationContext cv = new ShelterLocationContext(connStr);
+
+            var query = from v in cv.ShelterLocations
+                        orderby v.Shelter_Location_ID
+                        select v;
+
+            List<ShelterLocation> myData = query.ToList();
+
+            return View(myData);
         }
 
         /*[HttpPost]
