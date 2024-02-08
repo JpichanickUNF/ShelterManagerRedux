@@ -24,7 +24,7 @@
             <td>@v.Shelter_Location_Available_Room/@v.Shelter_Location_Total_Room</td>
             <td>
                 <form action="">
-                    <asp:Button ID="@v.Shelter_Location_ID" runat="server" PostBackUrl="~/ShowInterest.cshtml" />
+                    <button type="button" onclick="location.href='@Url.Action("ShowInterest","ClientViewController")'"> Button name</button>
                 </form>
             </td>
         <td><a href="@v.Shelter_Location_Description">shelter info</a></td>
