@@ -53,7 +53,10 @@ namespace ShelterManagerRedux.Controllers
         {
             return this.RedirectToAction("ClientView", "ClientView");
         }
-
+        public ActionResult ShowInterest()
+        {
+            return this.RedirectToAction("ShowInterest", "ClientView");
+        }
 
 
 
