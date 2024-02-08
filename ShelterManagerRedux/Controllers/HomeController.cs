@@ -273,7 +273,7 @@ namespace ShelterManagerRedux.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult LoginView(Manager m)
+        public IActionResult LoginView(LoginViewModel m)
         {
 
             // authenticate manager in context
