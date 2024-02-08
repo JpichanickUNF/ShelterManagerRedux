@@ -25,5 +25,9 @@ namespace ShelterManagerRedux.Controllers
 
             return View(myData);
         }
+        public IActionResult ShowInterest()
+        {
+            return View();
+        }
     }
 }
