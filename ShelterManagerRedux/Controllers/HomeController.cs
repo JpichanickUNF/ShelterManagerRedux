@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography.X509Certificates;
 using ShelterManagerRedux;
+using ShelterManagerRedux.Models.ShelterManagerRedux;
 
 namespace ShelterManagerRedux.Controllers
 {
