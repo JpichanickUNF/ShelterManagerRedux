@@ -8,8 +8,6 @@ using System.Data.Entity.Core.Common.EntitySql;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography.X509Certificates;
-using ShelterManagerRedux;
-using ShelterManagerRedux.Models.ShelterManagerRedux;
 
 namespace ShelterManagerRedux.Controllers
 {
@@ -275,7 +273,7 @@ namespace ShelterManagerRedux.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult LoginView(Manager m)
+        public IActionResult LoginView(LoginViewModel m)
         {
 
             // authenticate manager in context
