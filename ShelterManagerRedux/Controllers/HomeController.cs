@@ -19,13 +19,15 @@ namespace ShelterManagerRedux.Controllers
         //self note
         private ManagerContext _context;
 
-
+        private IConfiguration _configuration;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
 
             //self note 
+          
+
             _context = new ManagerContext();
 
 
@@ -270,29 +272,22 @@ namespace ShelterManagerRedux.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult LoginView(Manager m)
+        public IActionResult LoginView(LoginViewModel m)
         {
-            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
-            string connectionString = config.GetSection("Connnectionstrings:MyConnection").Value;
 
-          
-
-                // authenticate manager in context
-                Manager authenticatedManager = _context.AuthenticateManager(m.Username, m.Password);
-            ViewBag.ErrorMessage = "the code has made it to the home controller";
+            // authenticate manager in context
+            Manager authenticatedManager = _context.AuthenticateManager(m.Username, m.Password);
 
             if (authenticatedManager != null)
                 {
                     // successful login, store session
                     SetManagerInSession(authenticatedManager.ManagerID);
-                    ViewBag.LoginMessage = "Login successful!";
                     return RedirectToAction("DisplaySuccessMessage", "Home");
                 }
                 else
                 {
                     // fail login
                     ModelState.AddModelError(string.Empty, "Invalid username or password");
-                    ViewBag.ErrorMessage = "Invalid username or password";
 
                     return View(m);
                 }
