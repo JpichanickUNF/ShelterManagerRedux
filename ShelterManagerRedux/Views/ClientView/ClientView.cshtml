@@ -23,8 +23,11 @@
         <td>@v.Shelter_Location_Description</td>  
             <td>@v.Shelter_Location_Available_Room/@v.Shelter_Location_Total_Room</td>
             <td>
-                <form action="">
-                    <button type="button" onclick="location.href='@Url.Action("ShowInterest","ClientView")'">Show Interest</button>
+                @*<form action="">
+                   <button type="button" id="@v.Shelter_Location_ID" onclick="location.href='@Url.Action("ShowInterest","ClientView")'">Show Interest</button>
+            </form>*@
+                <form asp-controller="ClientView" asp-action="ShowInterestButton" method="post">
+                    <button name="@v.Shelter_Location_ID" class="btn btn-light">Show Interest</button>
                 </form>
             </td>
         <td><a href="@v.Shelter_Location_Description">shelter info</a></td>

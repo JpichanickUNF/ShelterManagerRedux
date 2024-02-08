@@ -29,5 +29,34 @@ namespace ShelterManagerRedux.Controllers
         {
             return View();
         }
+
+        /*[HttpPost]
+        public IActionResult ShowInterestButton()
+        {
+            var buttonNames = Request.Form.Select(x => x.Key).ToList();
+            //now you can see clicked button name from form
+            string buttonName = buttonNames.FirstOrDefault();
+            int buttonId = int.Parse(buttonName);
+
+            //do your logic...
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+            string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
+
+            ShelterLocationContext cv = new ShelterLocationContext(connStr);
+
+            var query = from v in cv.ShelterLocations
+                        orderby v.Shelter_Location_ID
+                        select v;
+
+            List<ShelterLocation> myData = query.ToList();
+            List<ShelterLocation> returnData = [];
+            for (int i = 0; i < myData.Count; i++)
+            {
+                if (myData[i].Shelter_Location_ID == buttonId) {
+                    returnData[0] = myData[i];
+                }
+            }
+            return View(returnData);
+        }*/
     }
 }

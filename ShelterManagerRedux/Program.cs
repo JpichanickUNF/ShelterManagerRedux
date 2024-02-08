@@ -1,5 +1,4 @@
-using Azure.Identity;
-var builder = WebApplication.CreateBuilder(args);
+using Azure.Identity;var builder = WebApplication.CreateBuilder(args);
 
 string connectionString = builder.Configuration["Connnectionstrings:MyConnection"];
 //////////////
