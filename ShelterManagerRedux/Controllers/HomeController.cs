@@ -275,7 +275,7 @@ namespace ShelterManagerRedux.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult LoginView(LoginViewModel m)
         {
-
+            /*
             // authenticate manager in context
             Manager authenticatedManager = _context.AuthenticateManager(m.Username, m.Password);
 
@@ -293,7 +293,8 @@ namespace ShelterManagerRedux.Controllers
                 return View("Index");
                 }
             //if program gives error, there is nothing returned right here  
-
+            */
+            return View("Index");
         }
         private void SetManagerInSession(int managerId)
         {
