@@ -10,19 +10,15 @@
         <th>Show Interest</th>
         <th>Info</th>
     </tr>
-    @foreach (ShelterLocation v in Model)
+    @foreach (ShelterLocation a in Model)
     {
         
             <tr>
-                <td>@v.Shelter_Location_ID</td>
-                <td>@v.Shelter_Location_Description</td>
-                <td>@v.Shelter_Location_Available_Room/@v.Shelter_Location_Total_Room</td>
-                <td>
-                    <form action="">
-                        <button type="button" id="@v.Shelter_Location_ID" onclick="location.href='@Url.Action("ShowInterest","ClientView")'">Show Interest</button>
-                    </form>
-                </td>
-                <td><a href="@v.Shelter_Location_Description">shelter info</a></td>
+                <td>@a.Shelter_Location_ID</td>
+                <td>@a.Shelter_Location_Description</td>
+                <td>@a.Shelter_Location_Available_Room/@a.Shelter_Location_Total_Room</td>
+                <td>blank space</td>
+                <td><a href="@a.Shelter_Location_Description">shelter info</a></td>
             </tr>
     }
 </table>
