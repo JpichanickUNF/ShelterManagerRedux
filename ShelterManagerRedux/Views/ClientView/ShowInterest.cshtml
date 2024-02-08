@@ -12,19 +12,17 @@
     </tr>
     @foreach (ShelterLocation v in Model)
     {
-        if(v.Shelter_Location_ID != 11)
-        {
+        
             <tr>
                 <td>@v.Shelter_Location_ID</td>
-                <td>@v.Shelter_Location_Description</td>  
-                    <td>@v.Shelter_Location_Available_Room/@v.Shelter_Location_Total_Room</td>
-                    <td>
-                        <form action="">
-                           <button type="button" id="@v.Shelter_Location_ID" onclick="location.href='@Url.Action("ShowInterest","ClientView")'">Show Interest</button>
+                <td>@v.Shelter_Location_Description</td>
+                <td>@v.Shelter_Location_Available_Room/@v.Shelter_Location_Total_Room</td>
+                <td>
+                    <form action="">
+                        <button type="button" id="@v.Shelter_Location_ID" onclick="location.href='@Url.Action("ShowInterest","ClientView")'">Show Interest</button>
                     </form>
-                    </td>
+                </td>
                 <td><a href="@v.Shelter_Location_Description">shelter info</a></td>
-                </tr>
-        }
+            </tr>
     }
 </table>
