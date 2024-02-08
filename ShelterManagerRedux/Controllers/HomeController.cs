@@ -283,16 +283,16 @@ namespace ShelterManagerRedux.Controllers
                 {
                     // successful login, store session
                     SetManagerInSession(authenticatedManager.ManagerID);
-                    return RedirectToAction("DisplaySuccessMessage", "Home");
+                return View("Index");
                 }
                 else
                 {
                     // fail login
                     ModelState.AddModelError(string.Empty, "Invalid username or password");
 
-                    return View(m);
+                return View("Index");
                 }
-                //if program gives error, there is nothing returned right here  
+            //if program gives error, there is nothing returned right here  
 
         }
         private void SetManagerInSession(int managerId)
