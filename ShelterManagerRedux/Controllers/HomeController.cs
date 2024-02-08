@@ -6,7 +6,9 @@ using ShelterManagerRedux.DataAccess;
 using ShelterManagerRedux.Models;
 using System.Data.Entity.Core.Common.EntitySql;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography.X509Certificates;
+using ShelterManagerRedux;
 
 namespace ShelterManagerRedux.Controllers
 {
