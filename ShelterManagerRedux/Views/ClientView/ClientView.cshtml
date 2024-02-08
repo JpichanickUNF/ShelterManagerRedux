@@ -19,14 +19,12 @@
     @foreach (ShelterLocation v in Model)
       {
     <tr>
-       @*  <td style="visibility: hidden;" >@a.ShelterID</td> *@
         <td>@v.Shelter_Location_ID</td>
         <td>@v.Shelter_Location_Description</td>  
             <td>@v.Shelter_Location_Available_Room/@v.Shelter_Location_Total_Room</td>
             <td>
                 <form action="">
-                    <button type="submit" onclick="">Show Interest</button>
-                   @*  <button type="submit" onclick="@a.AvailableSpace == @a.AvailableSpace - 1">Show Interest</button> *@
+                    <asp:Button ID="@v.Shelter_Location_ID" runat="server" PostBackUrl="~/ShowInterest.cshtml" />
                 </form>
             </td>
         <td><a href="@v.Shelter_Location_Description">shelter info</a></td>
