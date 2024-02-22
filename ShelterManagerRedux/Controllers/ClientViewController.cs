@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Azure;
 using NuGet.Versioning;
 using ShelterManagerRedux.DataAccess;
 using ShelterManagerRedux.Models;
@@ -25,7 +26,7 @@ namespace ShelterManagerRedux.Controllers
 
             return View(myData);
         }
-        public IActionResult ShowInterest()
+        public IActionResult ShowInterest(int shelterID)
         {
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
             string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
@@ -69,5 +70,34 @@ namespace ShelterManagerRedux.Controllers
             }
             return View(returnData);
         }*/
+
+        [HttpPost]
+        public ActionResult ShowInterestButton(int shelterID)
+        {
+
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+            string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
+
+            ShelterLocation s = null;
+
+
+            using (ShelterLocationContext cv = new ShelterLocationContext(connStr))
+            {
+                s = cv.ShelterLocations.Find(shelterID);
+                s.Shelter_Location_Available_Room = s.Shelter_Location_Available_Room - 1;
+            }
+
+            using (ShelterLocationContext cv = new ShelterLocationContext(connStr))
+            {
+                cv.Entry(s).State = System.Data.Entity.EntityState.Modified;
+                cv.SaveChanges();
+            }
+
+            //Url.Action("ShowInterest", "ClientView");
+
+            
+            return RedirectToAction("ClientView");
+
+        }
     }
 }

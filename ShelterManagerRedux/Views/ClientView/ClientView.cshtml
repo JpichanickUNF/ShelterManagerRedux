@@ -1,6 +1,8 @@
 ﻿@model List<ShelterManagerRedux.Models.ShelterLocation>
 @{
     ViewData["Title"] = "ClientView";
+
+
 }
 
 <h1>Partnered Shelter</h1>
@@ -22,9 +24,8 @@
         <td>@v.Shelter_Location_Description</td>  
             <td>@v.Shelter_Location_Available_Room/@v.Shelter_Location_Total_Room</td>
             <td>
-                <form action="">
-                   <button type="button" id="@v.Shelter_Location_ID" onclick="location.href='@Url.Action("ShowInterest","ClientView")'">Show Interest</button>
-            </form>
+                    <button type="button" value="@v.Shelter_Location_ID" onclick="location.href='@Url.Action("ShowInterestButton", "ClientView")'">Show Interest</button>
+           
                @* <form asp-controller="ClientView" asp-action="ShowInterestButton" method="post">
                     <button name="@v.Shelter_Location_ID" class="btn btn-light">Show Interest</button>
             </form>*@
