@@ -108,16 +108,16 @@ namespace ShelterManagerRedux.Controllers
         [Route("ClientManager")]
         public IActionResult ClientManager()
         {
-            return ClientManagerMaster("");
+            return ClientManagerMaster("", "");
         }
-        [Route("ClientManager/{Filter}")]
-        public IActionResult ClientManager(string Filter)
+        [Route("ClientManager/{FilterType}/{Filter}")]
+        public IActionResult ClientManager(string Filtertype, string Filter)
         {
-            return ClientManagerMaster(Filter);
+            return ClientManagerMaster(Filtertype, Filter);
         }
 
 
-        public IActionResult ClientManagerMaster(string Filter)
+        public IActionResult ClientManagerMaster(string Filtertype, string Filter)
         {
 
             List<Client> Clients = new List<Client>();
@@ -132,17 +132,42 @@ namespace ShelterManagerRedux.Controllers
             var shelterLocations = from c in slc.ShelterLocations orderby c.Shelter_Location_Description select c;
             SelectList sl = new SelectList(shelterLocations, "Shelter_Location_ID", "Shelter_Location_Description");
             ViewBag.ShelterLocations = shelterLocations;
+            ViewBag.ShelterLocationsFilters = sl;
+
+
 
             List<Client> myData = null;
             
             if (Filter.Length > 0)
             {
-                var query = from c in cc.Clients
-                        join s in cc.ShelterLocations on c.Shelter_Location_ID equals s.Shelter_Location_ID
-                        where c.F_Name == Filter
-                        orderby c.L_Name
-                        select c;
-                myData = query.ToList();
+                if (Filtertype == "FirstName")
+                {
+                    var query = from c in cc.Clients
+                                join s in cc.ShelterLocations on c.Shelter_Location_ID equals s.Shelter_Location_ID
+                                where c.F_Name == Filter
+                                orderby c.L_Name
+                                select c;
+                    myData = query.ToList();
+                }
+                else if (Filtertype == "LastName")
+                {
+                    var query = from c in cc.Clients
+                                join s in cc.ShelterLocations on c.Shelter_Location_ID equals s.Shelter_Location_ID
+                                where c.L_Name == Filter
+                                orderby c.L_Name
+                                select c;
+                    myData = query.ToList();
+                }
+                else if (Filtertype == "ShelterLocation")
+                {
+                    int selectedID = int.Parse(Filter);
+                    var query = from c in cc.Clients
+                                join s in cc.ShelterLocations on c.Shelter_Location_ID equals s.Shelter_Location_ID
+                                where c.Shelter_Location_ID == selectedID
+                                orderby c.L_Name
+                                select c;
+                    myData = query.ToList();
+                }
             }
             else
             {
@@ -152,8 +177,6 @@ namespace ShelterManagerRedux.Controllers
                         select c;
                 myData = query.ToList();
             }
-
-
             return View(myData);
         }
 

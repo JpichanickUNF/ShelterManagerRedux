@@ -15,10 +15,26 @@
 <br />
 <table style="border:none;">
     <tr>
-        <td>Filter by First Name</td>
+        @* <td>Select Filter</td> *@
         <td>
-            <input type="text" id="fname" name="fname"> <button type="button" onclick="SearchByFirstName()">Search</button>
+            <select name="" id="SearchFilter" onchange="SearchFilterEventHandler(this)">
+                <option value="">Select Filter</option>
+                <option value="FirstName">First Name</option>
+                <option value="LastName">Last Name</option>
+                <option value="ShelterLocation">Shelter Location</option>
+            </select>
         </td>
+        <td id="tdNameFilterInput" style="display:none;">
+            <input type="text" id="FilterInput" name="FilterInput">
+        </td>
+        <td id="tdShelterFilterInput" style="display:none;">
+            @* @Html.DropDownListFor(x => Model.Shelter_Location_ID, new SelectList(ViewBag.ShelterLocations, "Shelter_Location_ID", "Shelter_Location_Description", ViewBag.ShelterLocations), new { @disabled = "disabled" }) *@
+            @Html.DropDownList("Shelter_location_ID", (IEnumerable<SelectListItem>)ViewBag.ShelterLocationsFilters)
+        </td>
+        <td>
+            <button type="button" onclick="SearchByFilter()">Search</button>
+        </td>
+
     </tr>
 </table>
 <h3>Existing Clients</h3>
@@ -69,18 +85,67 @@
 
 <script>
 
-    function OpenClientDetailWindow(Client_ID) {
+    function SearchFilterEventHandler(dropdownlistobject) 
+    {
+
+        var input1 = document.getElementById('tdNameFilterInput');
+        input1.style.display = 'none';
+        var input2 = document.getElementById('tdShelterFilterInput');
+        input2.style.display = 'none';
+
+        var selectedValue = dropdownlistobject.value;
+        //alert(selectedValue);
+        if (selectedValue == "FirstName" || selectedValue == "LastName") {
+            input1.style.display = "block";
+        }
+        else if (selectedValue == "ShelterLocation") 
+        { 
+            input2.style.display = "block";
+        }
+    }
+
+
+
+    function OpenClientDetailWindow(Client_ID) 
+    {
 
         //alert("Opening: " + Client_ID);
         window.open("/ClientDetailManager/" + Client_ID, "mywindow", "menubar=1,resizable=1,width=600,height=500");
     }
-    function SearchByFirstName() {
-        var Fname = document.getElementById('fname').value;
-        //alert("Fname = " + Fname);
-        window.location = ("/ClientManager/" + Fname);
+    // function SearchByFirstName() {
+    //     var Fname = document.getElementById('fname').value;
+    //     //alert("Fname = " + Fname);
+    //     window.location = ("/ClientManager/" + Fname);
+    // }
+    function SearchByFilter() {
+        var FilterType = document.getElementById('SearchFilter').value;
+        // alert(FilterType);
+
+        var FilterInput = "";
+        if (FilterType == "FirstName" || FilterType == "LastName") 
+        {
+            FilterInput = document.getElementById('FilterInput').value;
+            // alert(FilterInput);
+        }
+        else if (FilterType == "ShelterLocation") 
+        {
+            FilterInput = document.getElementById('Shelter_location_ID').value;
+            // alert(FilterInput);
+        }
+
+        if (FilterInput == "") 
+        {
+            window.location = ("/ClientManager");
+        }
+        else 
+        {
+            window.location = ("/ClientManager/" + FilterType + "/" + FilterInput);
+        }
+
     }
 
-    function DeleteClient(Client_ID) {
+    function DeleteClient(Client_ID) 
+    {
         if (confirm("Press OK to continue with deletion.")) {
             //alert("Deleting: " + Client_ID);
             $.ajax({
