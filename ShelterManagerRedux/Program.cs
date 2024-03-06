@@ -51,17 +51,7 @@ var app = builder.Build();
 //app.MapGet("/", () => "Hello World!");
 //////////////
 
-//the code below should give detailed information when http error is given
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-else
-{
-    // Add other error handling or logging configurations for production.
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
+
 
 app.UseRouting();
 app.UseStaticFiles();

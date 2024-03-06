@@ -320,20 +320,21 @@ namespace ShelterManagerRedux.Controllers
                 }
             //if program gives error, there is nothing returned right here  
             */
-            var manager = _context.AuthenticateManager(model.Username, model.Password);
+                var authenticatedManager = _context.AuthenticateManager(model.Username, model.Password);
 
-            if (manager != null)
-            {
-                _logger.LogInformation($"User {model.Username} authenticated successfully.");
-                // Successful login, store session or cookie if needed
-                SetManagerInSession(manager.ManagerID);
-                return RedirectToAction("Index", "Home");
-            }
+                if (authenticatedManager != null)
+                {
+                    // Successful login, store session or cookie if needed
+                    SetManagerInSession(authenticatedManager.ManagerID);
+                    return RedirectToAction("Index", "Home");
+                }
 
-            // Invalid login, show an error message
-            _logger.LogWarning($"Invalid login attempt for user {model.Username}.");
-            ModelState.AddModelError(string.Empty, "Invalid username or password");
-            return View(model);
+                // Invalid login, show an error message
+                ModelState.AddModelError(string.Empty, "Invalid username or password");
+            
+
+            // If ModelState is not valid or authentication fails, return to the login page with the model
+            return View("Create");
         }
         private void SetManagerInSession(int managerId)
         {
