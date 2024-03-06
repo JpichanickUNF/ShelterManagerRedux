@@ -320,11 +320,12 @@ namespace ShelterManagerRedux.Controllers
                 }
             //if program gives error, there is nothing returned right here  
             */
+            _logger.LogInformation($"Attempting to authenticate user: {model.Username}");
+
             try
             {
                 IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
                 string connectionString = config.GetSection("Connnectionstrings:MyConnection").Value;
-                _logger.LogInformation($"Attempting to authenticate user: {model.Username}");
 
                 // Use the connection string to create a ManagerContext
                 using (var context = new ManagerContext(connectionString))
@@ -334,6 +335,7 @@ namespace ShelterManagerRedux.Controllers
                     if (manager != null)
                     {
                         _logger.LogInformation($"User {model.Username} authenticated successfully.");
+
                         // Successful login, store session or cookie if needed
                         SetManagerInSession(manager.ManagerID);
 
@@ -343,7 +345,7 @@ namespace ShelterManagerRedux.Controllers
                 }
 
                 // Invalid login, show an error message
-                _logger.LogWarning($"Invalid login attempt for user {model.Username}.");
+                _logger.LogWarning($"Invalid login attempt for user {model.Username}");
                 ModelState.AddModelError(string.Empty, "Invalid username or password");
                 return View(model);
             }
