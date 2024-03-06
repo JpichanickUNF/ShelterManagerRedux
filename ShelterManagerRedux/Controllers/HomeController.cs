@@ -320,23 +320,37 @@ namespace ShelterManagerRedux.Controllers
                 }
             //if program gives error, there is nothing returned right here  
             */
-            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
-            string connectionString = config.GetSection("Connnectionstrings:MyConnection").Value;
-            ViewBag.ErrorMessage = "";
-            var manager = _context.AuthenticateManager(model.Username, model.Password);
-
-            if (manager != null)
+            try
             {
-                _logger.LogInformation($"User {model.Username} authenticated successfully.");
-                // Successful login, store session or cookie if needed
-                SetManagerInSession(manager.ManagerID);
-                return RedirectToAction("Index", "Home");
-            }
+                IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+                string connectionString = config.GetSection("Connnectionstrings:MyConnection").Value;
 
-            // Invalid login, show an error message
-            _logger.LogWarning($"Invalid login attempt for user {model.Username}.");
-            ModelState.AddModelError(string.Empty, "Invalid username or password");
-            return View("Index");
+                // Use the connection string to create a ManagerContext
+                using (var context = new ManagerContext(connectionString))
+                {
+                    var manager = context.AuthenticateManager(model.Username, model.Password);
+
+                    if (manager != null)
+                    {
+                        _logger.LogInformation($"User {model.Username} authenticated successfully.");
+                        // Successful login, store session or cookie if needed
+                        SetManagerInSession(manager.ManagerID);
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+
+                // Invalid login, show an error message
+                _logger.LogWarning($"Invalid login attempt for user {model.Username}.");
+                ModelState.AddModelError(string.Empty, "Invalid username or password");
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions, log them, or return an error view
+                _logger.LogError($"Error during login: {ex.Message}");
+                ModelState.AddModelError(string.Empty, "An error occurred during login");
+                return View(model);
+            }
         }
         private void SetManagerInSession(int managerId)
         {
