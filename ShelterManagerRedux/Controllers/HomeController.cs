@@ -320,11 +320,12 @@ namespace ShelterManagerRedux.Controllers
                 }
             //if program gives error, there is nothing returned right here  
             */
-            var manager = _context.Managers.FirstOrDefault(m => m.Username == model.Username);
+            var manager = _context.AuthenticateManager(model.Username, model.Password);
 
-            if (manager != null && manager.VerifyPassword(model.Password))
+            if (manager != null)
             {
-                // Successful login, redirect to the home page or another secure page
+                // Successful login, store session or cookie if needed
+                SetManagerInSession(manager.ManagerID);
                 return RedirectToAction("Index", "Home");
             }
 
