@@ -324,6 +324,7 @@ namespace ShelterManagerRedux.Controllers
             {
                 IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
                 string connectionString = config.GetSection("Connnectionstrings:MyConnection").Value;
+                _logger.LogInformation($"Attempting to authenticate user: {model.Username}");
 
                 // Use the connection string to create a ManagerContext
                 using (var context = new ManagerContext(connectionString))
