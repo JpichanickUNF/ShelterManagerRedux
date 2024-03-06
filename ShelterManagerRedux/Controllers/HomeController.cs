@@ -324,12 +324,14 @@ namespace ShelterManagerRedux.Controllers
 
             if (manager != null)
             {
+                _logger.LogInformation($"User {model.Username} authenticated successfully.");
                 // Successful login, store session or cookie if needed
                 SetManagerInSession(manager.ManagerID);
                 return RedirectToAction("Index", "Home");
             }
 
             // Invalid login, show an error message
+            _logger.LogWarning($"Invalid login attempt for user {model.Username}.");
             ModelState.AddModelError(string.Empty, "Invalid username or password");
             return View(model);
         }
