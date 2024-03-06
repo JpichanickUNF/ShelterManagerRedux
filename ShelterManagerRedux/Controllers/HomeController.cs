@@ -373,7 +373,7 @@ namespace ShelterManagerRedux.Controllers
             ViewBag.LoginMessage = loginMessage;
 
             // Render a specific view for displaying the success message
-            return View("Home");
+            return View("Index");
         }
 
 
