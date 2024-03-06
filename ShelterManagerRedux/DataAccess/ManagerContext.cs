@@ -25,7 +25,7 @@ namespace ShelterManagerRedux.DataAccess
         }
         public Manager AuthenticateManager(string username, string password)
         {
-            return Managers.FirstOrDefault(m => m.Username == username && m.VerifyPassword(password));
+            return Managers.FirstOrDefault(m => m.Username == username && m.Password == password);
         }
 
         /*

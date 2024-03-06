@@ -33,15 +33,7 @@ namespace ShelterManagerRedux.Models
 
         [Required]
         public string AssignedShelter { get; set; }
-        public string PasswordHash { get; set; }
 
-        //for login
-        public bool VerifyPassword(string password)
-        {
-            var passwordHasher = new PasswordHasher<Manager>();
-            var result = passwordHasher.VerifyHashedPassword(this, PasswordHash, password);
-            return result == PasswordVerificationResult.Success;
-        }
-       
+        
     }
 }
