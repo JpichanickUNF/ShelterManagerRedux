@@ -299,7 +299,7 @@ namespace ShelterManagerRedux.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult LoginView(LoginViewModel m)
+        public IActionResult LoginView(LoginViewModel model)
         {
             /*
             // authenticate manager in context
@@ -320,7 +320,17 @@ namespace ShelterManagerRedux.Controllers
                 }
             //if program gives error, there is nothing returned right here  
             */
-            return View("Index");
+            var manager = _context.Managers.FirstOrDefault(m => m.Username == model.Username);
+
+            if (manager != null && manager.VerifyPassword(model.Password))
+            {
+                // Successful login, redirect to the home page or another secure page
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Invalid login, show an error message
+            ModelState.AddModelError(string.Empty, "Invalid username or password");
+            return View(model);
         }
         private void SetManagerInSession(int managerId)
         {

@@ -32,6 +32,11 @@ namespace ShelterManagerRedux.Models
 
         [Required]
         public string AssignedShelter { get; set; }
+        public bool VerifyPassword(string password)
+        {
+            // Implement your logic to verify the password
+            return Password == password;
+        }
 
         /*[Key]
          public int ManagerID { get; set; }
