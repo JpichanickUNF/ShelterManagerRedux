@@ -335,7 +335,9 @@ namespace ShelterManagerRedux.Controllers
                         _logger.LogInformation($"User {model.Username} authenticated successfully.");
                         // Successful login, store session or cookie if needed
                         SetManagerInSession(manager.ManagerID);
-                        return RedirectToAction("Index", "Home");
+
+                        // Redirect to the DisplaySuccessMessage action
+                        return RedirectToAction("DisplaySuccessMessage");
                     }
                 }
 
@@ -368,7 +370,7 @@ namespace ShelterManagerRedux.Controllers
             ViewBag.LoginMessage = loginMessage;
 
             // Render a specific view for displaying the success message
-            return View("Success");
+            return View("Home");
         }
 
 
