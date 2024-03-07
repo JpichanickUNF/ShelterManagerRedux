@@ -19,86 +19,45 @@ namespace ShelterManagerRedux.Controllers
             ShelterLocationContext cv = new ShelterLocationContext(connStr);
 
             var query = from v in cv.ShelterLocations
-                        orderby v.Shelter_Location_ID
+                        orderby v.Shelter_Location_Available_Room descending
                         select v;
 
             List<ShelterLocation> myData = query.ToList();
 
             return View(myData);
         }
+
+        [HttpPost]
         public IActionResult ShowInterest(int shelterID)
         {
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
             string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
-
+               
             using (ShelterLocationContext db = new ShelterLocationContext(connStr))
             {
-                var shelter = db.ShelterLocations.Where(s => s.Shelter_Location_ID == 11).FirstOrDefault();
+                var shelter = db.ShelterLocations.FirstOrDefault(s => s.Shelter_Location_ID == shelterID);
 
-                shelter.Shelter_Location_Available_Room = 0;
-
-                db.SaveChanges();
-            }
-
-            return View("ClientView");
-        }
-
-        /*[HttpPost]
-        public IActionResult ShowInterestButton()
-        {
-            var buttonNames = Request.Form.Select(x => x.Key).ToList();
-            //now you can see clicked button name from form
-            string buttonName = buttonNames.FirstOrDefault();
-            int buttonId = int.Parse(buttonName);
-
-            //do your logic...
-            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
-            string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
-
-            ShelterLocationContext cv = new ShelterLocationContext(connStr);
-
-            var query = from v in cv.ShelterLocations
-                        orderby v.Shelter_Location_ID
-                        select v;
-
-            List<ShelterLocation> myData = query.ToList();
-            List<ShelterLocation> returnData = [];
-            for (int i = 0; i < myData.Count; i++)
-            {
-                if (myData[i].Shelter_Location_ID == buttonId) {
-                    returnData[0] = myData[i];
+                if (shelter != null)
+                {
+                    if (shelter.Shelter_Location_Available_Room > 0)
+                    {
+                        // Update the shelter availability or perform other actions as needed
+                        shelter.Shelter_Location_Available_Room -= 1;
+                        db.SaveChanges();
+                    }
+                    
+                    else
+                    {
+                        ViewData["ErrorMessage"] = "This shelter has no available space";
+                        return View("ClientView", db.ShelterLocations.ToList());
+                    }
                 }
             }
-            return View(returnData);
-        }*/
 
-        [HttpPost]
-        public ActionResult ShowInterestButton(int shelterID)
-        {
-
-            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
-            string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
-
-            ShelterLocation s = null;
-
-
-            using (ShelterLocationContext cv = new ShelterLocationContext(connStr))
-            {
-                s = cv.ShelterLocations.Find(shelterID);
-                s.Shelter_Location_Available_Room = s.Shelter_Location_Available_Room - 1;
-            }
-
-            using (ShelterLocationContext cv = new ShelterLocationContext(connStr))
-            {
-                cv.Entry(s).State = System.Data.Entity.EntityState.Modified;
-                cv.SaveChanges();
-            }
-
-            //Url.Action("ShowInterest", "ClientView");
-
-            
+            // Return whatever view you want after the interest is shown
             return RedirectToAction("ClientView");
-
         }
+
+
     }
 }

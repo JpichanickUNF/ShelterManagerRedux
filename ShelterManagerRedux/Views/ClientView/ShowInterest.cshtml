@@ -12,8 +12,7 @@
     </tr>
     @foreach (ShelterLocation a in Model)
     {
-        if(a.Shelter_Location_ID == 11)
-        {
+        
             <tr>
                 <td>@a.Shelter_Location_ID</td>
                 <td>@a.Shelter_Location_Description</td>
@@ -21,6 +20,6 @@
                 <td>blank space</td>
                 <td><a href="@a.Shelter_Location_Description">shelter info</a></td>
             </tr>
-        }
+        
     }
 </table>
