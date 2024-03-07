@@ -31,15 +31,16 @@ namespace ShelterManagerRedux.Controllers
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
             string connStr = config.GetSection("Connnectionstrings:MyConnection").Value;
 
-            ShelterLocationContext cv = new ShelterLocationContext(connStr);
+            using (ShelterLocationContext db = new ShelterLocationContext(connStr))
+            {
+                var shelter = db.ShelterLocations.Where(s => s.Shelter_Location_ID == 11).FirstOrDefault();
 
-            var query = from v in cv.ShelterLocations
-                        orderby v.Shelter_Location_ID
-                        select v;
+                shelter.Shelter_Location_Available_Room = 0;
 
-            List<ShelterLocation> myData = query.ToList();
+                db.SaveChanges();
+            }
 
-            return View(myData);
+            return View("ClientView");
         }
 
         /*[HttpPost]
