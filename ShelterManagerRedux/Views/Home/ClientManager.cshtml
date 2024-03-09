@@ -15,7 +15,6 @@
 <br />
 <table style="border:none;">
     <tr>
-        @* <td>Select Filter</td> *@
         <td>
             <select name="" id="SearchFilter" onchange="SearchFilterEventHandler(this)">
                 <option value="">Select Filter</option>
@@ -31,8 +30,11 @@
             @* @Html.DropDownListFor(x => Model.Shelter_Location_ID, new SelectList(ViewBag.ShelterLocations, "Shelter_Location_ID", "Shelter_Location_Description", ViewBag.ShelterLocations), new { @disabled = "disabled" }) *@
             @Html.DropDownList("Shelter_location_ID", (IEnumerable<SelectListItem>)ViewBag.ShelterLocationsFilters)
         </td>
-        <td>
+        <td style="border:none;">
+            &nbsp;
             <button type="button" onclick="SearchByFilter()">Search</button>
+            &nbsp;
+            <button type="button" onclick="ClearFilter()">Clear</button>
         </td>
 
     </tr>
@@ -143,6 +145,11 @@
         }
 
     }
+
+    function ClearFilter() { 
+        window.location = ("/ClientManager");
+    }
+
 
     function DeleteClient(Client_ID) 
     {
