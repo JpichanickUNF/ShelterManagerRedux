@@ -20,9 +20,6 @@
 
     <h1 class="display-4">Welcome to The Shelter Manager</h1>
     @*  <h2>Joshua, Brandon, Kelli, Jordan</h2> *@
-    <div>
-        <p>@ViewBag.LoginMessage</p>
-    </div>
     <table>
         <tr>
             <td><a asp-action="Create">Create Account</a></td>
@@ -33,3 +30,11 @@
     </table>
 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var loginMessage = '@ViewBag.LoginMessage';
+        if (loginMessage) {
+            alert(loginMessage);
+        }
+    });
+</script>
