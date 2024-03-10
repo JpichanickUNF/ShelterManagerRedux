@@ -22,3 +22,14 @@
 
     <button type="submit" class="btn btn-primary">Login</button>
 </form>
+<!-- script for login message -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var loginMessage = '@TempData["LoginMessage"]';
+
+        if (loginMessage) {
+            alert(loginMessage);
+        }
+    });
+</script>
+
