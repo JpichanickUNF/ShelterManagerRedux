@@ -341,7 +341,7 @@ namespace ShelterManagerRedux.Controllers
                         HttpContext.Session.SetString("LoginMessage", "Login successful!");
 
                         // Redirect to the DisplaySuccessMessage action
-                        return RedirectToAction("DisplaySuccessMessage");
+                        return View("Index")
                     }
                     else
                     {
