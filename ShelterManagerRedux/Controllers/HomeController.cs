@@ -320,14 +320,8 @@ namespace ShelterManagerRedux.Controllers
                     }
                     else
                     {
-                        // Invalid login, show an error message
-
                         TempData["LoginMessage"] = "Invalid username or password";
-
-
-                        // Log the warning
                         _logger.LogWarning($"Invalid login attempt for user {model.Username}");
-
                         return View(model);
                     }
                 }
