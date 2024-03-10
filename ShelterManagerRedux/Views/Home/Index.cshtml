@@ -33,7 +33,7 @@
 <!-- script for login message -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var loginMessage = '@ViewBag.LoginMessage';
+        var loginMessage = '@TempData["LoginMessage"]';
         if (loginMessage) {
             alert(loginMessage);
         }

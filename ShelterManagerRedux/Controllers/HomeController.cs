@@ -335,14 +335,9 @@ namespace ShelterManagerRedux.Controllers
                     if (manager != null)
                     {
                         _logger.LogInformation($"User {model.Username} authenticated successfully.");
-
-                        // Successful login, store session or cookie if needed
-                        //currently does not set manager in session
-                        //currently does not show a display message, testing if code reaches this point
-                        // Redirect to the DisplaySuccessMessage action
                         SetManagerInSession(manager.ManagerID);
-                        HttpContext.Session.SetString("LoginMessage", "Login successful!");
-                        //works with return View("Index" and no HttpContext.Session.SetString("LoginMessage", "Login successful!");
+                        TempData["LoginMessage"] = "Login successful!";
+                        //works with return View("Index"); and return RedirectToAction("DisplaySuccessfulMessage")
 
                         return RedirectToAction("Index");
                     }
