@@ -321,16 +321,9 @@ namespace ShelterManagerRedux.Controllers
                     else
                     {
                         // Invalid login, show an error message
-                        bool incorrectPassword = _context.AuthenticateManager(model.Username, model.Password) == null;
 
-                        if (incorrectPassword)
-                        {
-                            TempData["ErrorMessage"] = "Incorrect password. Please try again.";
-                        }
-                        else
-                        {
-                            TempData["ErrorMessage"] = "Invalid username or password";
-                        }
+                        TempData["LoginMessage"] = "Invalid username or password";
+
 
                         // Log the warning
                         _logger.LogWarning($"Invalid login attempt for user {model.Username}");
@@ -364,12 +357,6 @@ namespace ShelterManagerRedux.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
-
-
-
-
 
     }
 }
