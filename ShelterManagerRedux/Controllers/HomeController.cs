@@ -338,8 +338,7 @@ namespace ShelterManagerRedux.Controllers
 
                         // Successful login, store session or cookie if needed
                         //currently does not set manager in session
-                        HttpContext.Session.SetString("LoginMessage", "Login successful!");
-
+                        //currently does not show a display message, testing if code reaches this point
                         // Redirect to the DisplaySuccessMessage action
                         return View("Index");
                     }
