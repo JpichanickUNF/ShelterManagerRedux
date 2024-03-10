@@ -340,6 +340,7 @@ namespace ShelterManagerRedux.Controllers
                         //currently does not set manager in session
                         //currently does not show a display message, testing if code reaches this point
                         // Redirect to the DisplaySuccessMessage action
+                        SetManagerInSession(manager.ManagerID);
                         return View("Index");
                     }
                     else
