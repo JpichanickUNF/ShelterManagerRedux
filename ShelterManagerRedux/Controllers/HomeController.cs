@@ -363,7 +363,15 @@ namespace ShelterManagerRedux.Controllers
         }
         private void SetManagerInSession(int managerId)
         {
-            HttpContext.Session.SetInt32("ManagerID", managerId);
+            try
+            {
+                HttpContext.Session.SetInt32("ManagerID", managerId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error setting ManagerID in session: {ex.Message}");
+                throw; // Rethrow the exception for further investigation
+            }
         }
         public IActionResult DisplaySuccessMessage()
         {
