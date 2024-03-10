@@ -40,6 +40,16 @@ builder.Services.AddAzureAppConfiguration();
 //builder.Configuration.AddAzureAppConfiguration(connectionString);
 */
 //////////////
+
+//for login below
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+//for login above
+
 builder.Services.AddRazorPages();
 
 
@@ -51,6 +61,9 @@ var app = builder.Build();
 //app.MapGet("/", () => "Hello World!");
 //////////////
 
+//for login below
+app.UseSession();
+//for login above
 
 
 app.UseRouting();
