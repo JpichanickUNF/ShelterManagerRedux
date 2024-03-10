@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NuGet.Versioning;
@@ -7,6 +9,7 @@ using ShelterManagerRedux.Models;
 using System.Data.Entity.Core.Common.EntitySql;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
+using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 
 namespace ShelterManagerRedux.Controllers
@@ -299,6 +302,64 @@ namespace ShelterManagerRedux.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LoginView(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var manager = _context.AuthenticateManager(model.Username, model.Password);
+
+                if (manager != null)
+                {
+                    // Create claims for the authenticated user
+                    var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, manager.Username),
+                    // Add additional claims if needed
+                };
+
+                    var claimsIdentity = new ClaimsIdentity(
+                        claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    // Sign in the user
+                    var authProperties = new AuthenticationProperties
+                    {
+                        // Customize properties if needed
+                    };
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity),
+                        authProperties);
+
+                    // Redirect to the desired page after login
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid username or password");
+            }
+
+            // If we reach here, the model is invalid, return the view with errors
+            return View(model);
+        }
+
+        // Your existing code...
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Redirect to the desired page after logout
+            return RedirectToAction("Index");
+        }
+        /*
+        [HttpGet]
+        public IActionResult LoginView()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult LoginView(LoginViewModel model)
         {
             /*
@@ -320,7 +381,8 @@ namespace ShelterManagerRedux.Controllers
                 }
             //if program gives error, there is nothing returned right here  
             */
-            _logger.LogInformation($"Attempting to authenticate user: {model.Username}");
+        /*
+        _logger.LogInformation($"Attempting to authenticate user: {model.Username}");
 
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
             string connectionString = config.GetSection("Connnectionstrings:MyConnection").Value;
@@ -360,6 +422,7 @@ namespace ShelterManagerRedux.Controllers
             }
 
         }
+        */
         private void SetManagerInSession(int managerId)
         {
             HttpContext.Session.SetInt32("ManagerID", managerId);
@@ -378,7 +441,7 @@ namespace ShelterManagerRedux.Controllers
             // Render a specific view for displaying the success message
             return View("Index");
         }
-
+        
 
         public IActionResult Success()
         {
