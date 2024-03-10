@@ -34,8 +34,14 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var loginMessage = '@TempData["LoginMessage"]';
+        var errorMessage = '@TempData["ErrorMessage"]';
+
         if (loginMessage) {
             alert(loginMessage);
+        }
+
+        if (errorMessage) {
+            alert(errorMessage);
         }
     });
 </script>

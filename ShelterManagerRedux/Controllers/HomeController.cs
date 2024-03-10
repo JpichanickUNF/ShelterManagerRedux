@@ -301,31 +301,10 @@ namespace ShelterManagerRedux.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult LoginView(LoginViewModel model)
         {
-            /*
-            // authenticate manager in context
-            Manager authenticatedManager = _context.AuthenticateManager(m.Username, m.Password);
-
-            if (authenticatedManager != null)
-                {
-                    // successful login, store session
-                    SetManagerInSession(authenticatedManager.ManagerID);
-                return View("Index");
-                }
-                else
-                {
-                    // fail login
-                    ModelState.AddModelError(string.Empty, "Invalid username or password");
-
-                return View("Index");
-                }
-            //if program gives error, there is nothing returned right here  
-            */
             _logger.LogInformation($"Attempting to authenticate user: {model.Username}");
-
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
             string connectionString = config.GetSection("Connnectionstrings:MyConnection").Value;
 
-            // Use the connection string to create a ManagerContext
             using (var context = new ManagerContext(connectionString))
             {
                 try
@@ -337,21 +316,30 @@ namespace ShelterManagerRedux.Controllers
                         _logger.LogInformation($"User {model.Username} authenticated successfully.");
                         SetManagerInSession(manager.ManagerID);
                         TempData["LoginMessage"] = "Login successful!";
-                        //works with return View("Index"); and return RedirectToAction("DisplaySuccessfulMessage")
-
                         return RedirectToAction("Index");
                     }
                     else
                     {
                         // Invalid login, show an error message
+                        bool incorrectPassword = _context.AuthenticateManager(model.Username, model.Password) == null;
+
+                        if (incorrectPassword)
+                        {
+                            TempData["ErrorMessage"] = "Incorrect password. Please try again.";
+                        }
+                        else
+                        {
+                            TempData["ErrorMessage"] = "Invalid username or password";
+                        }
+
+                        // Log the warning
                         _logger.LogWarning($"Invalid login attempt for user {model.Username}");
-                        ModelState.AddModelError(string.Empty, "Invalid username or password");
+
                         return View(model);
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Handle exceptions, log them, or return an error view
                     _logger.LogError($"Error during login: {ex.Message}");
                     ModelState.AddModelError(string.Empty, "An error occurred during login");
                     return View(model);
@@ -363,21 +351,6 @@ namespace ShelterManagerRedux.Controllers
         {
             HttpContext.Session.SetInt32("ManagerID", managerId);
         }
-        public IActionResult DisplaySuccessMessage()
-        {
-            // Retrieve the login message from the session
-            string loginMessage = HttpContext.Session.GetString("LoginMessage");
-
-            // Clear the login message from the session to display it only once
-            HttpContext.Session.Remove("LoginMessage");
-
-            // Pass the message to the view
-            ViewBag.LoginMessage = loginMessage;
-
-            // Render a specific view for displaying the success message
-            return View("Index");
-        }
-
 
         public IActionResult Success()
         {
